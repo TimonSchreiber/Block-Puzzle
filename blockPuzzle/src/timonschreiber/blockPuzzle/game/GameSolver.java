@@ -26,7 +26,7 @@ public class GameSolver {
 	// ATTRIBUTES
 	// =========================================================================
 	
-	/** List of all BlockNames */
+	/** List of all {@code BlockNames} */
 	private final List<String> BLOCK_NAMES;
 
 	/** {@code MoveArray} to save every {@code Move} */
@@ -41,7 +41,6 @@ public class GameSolver {
 	/** {@code Game} */
 	private Game game;
 	
-	// XXX
 	// alternative for-loop variable instead of for-each
 	private String str;
 

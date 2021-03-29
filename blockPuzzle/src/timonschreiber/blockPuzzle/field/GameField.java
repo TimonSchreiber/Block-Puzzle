@@ -19,12 +19,16 @@ public class GameField {
 	// ATTRIBUTES
 	// =========================================================================
 
-	/** preset game values for height, width and max number of Blocks */
+	/** preset game values for height */
 	public static final int HEIGHT = 5;
+	
+	/** preset game values for width */
 	public static final int WIDTH = 6;
+	
+	/** preset game values for max number of {@code Block}s */
 	public static final int MAX_NUMBER_OF_BLOCKS = 14;
 
-	/** Winning Positions */
+	/** Winning Positions {@code PositionArray}*/
 	public static final PositionArray END_POSITIONS = new PositionArray(
 			new Position(4, 0), new Position(4, 1),
 			new Position(5, 0), new Position(5, 1) );
