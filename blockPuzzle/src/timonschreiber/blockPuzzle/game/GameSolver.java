@@ -74,7 +74,6 @@ public class GameSolver {
 			this.BLOCK_NAMES.add(blk.getName());
 		}
 		
-		// test XXX
 		this.str = this.BLOCK_NAMES.get(0);
 	
 	}
