@@ -90,7 +90,7 @@ public class GameSolver {
 	 */
 	private boolean isNewMove() {
 		Move nextMove;
-		GameField tmpFld = new GameField(this.game.field);
+		GameField tmpFld = new GameField(this.game.field.getBlocks());
 		
 
 		for (int i = 0; i < this.BLOCK_NAMES.size(); i++) {

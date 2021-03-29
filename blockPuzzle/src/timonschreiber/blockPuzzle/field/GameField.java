@@ -31,17 +31,17 @@ public class GameField {
 	/** Winning Positions {@code PositionArray}*/
 	public static final PositionArray END_POSITIONS = new PositionArray(
 			new Position(4, 0), new Position(4, 1),
-			new Position(5, 0), new Position(5, 1) );
+			new Position(5, 0), new Position(5, 1));
 	
 	// -------------------------------------------------------------------------
 	
-	/** Changes to True if the victory condition is met */
+	/** Changes to {@code true} if the victory condition is met */
 	private boolean isWon;
 	
-	/** BlockArray to keep track of every Block */
+	/** {@code BlockArray} to keep track of every {@code Block} */
 	private BlockArray blocks;
 
-	/** Canvas to draw the GameField on */
+	/** Canvas to draw the {@code GameField} on */
 	private Zeichenblatt gameField;
 
 	// =========================================================================
@@ -67,19 +67,6 @@ public class GameField {
 			this.placeBlock(new Block(blk));
 		}
 	}
-	
-	/** TODO is needed?
-	 * Class constructor from a {@code GameField}.
-	 * 
-	 * @param gameField		the {@code GameField}
-	 */
-	public GameField(GameField gameField) {
-		this.blocks = new BlockArray();
-		
-		for (Block blk : gameField.blocks) {
-			this.placeBlock(new Block(blk));
-		}
-	}
 
 	// =========================================================================
 	// GETTER - METHODS
@@ -88,7 +75,8 @@ public class GameField {
 	/** TODO
 	 * Checks if the Game is won.
 	 * 
-	 * @return True if the MainBlock reached the winning Position
+	 * @return	{@code true} if the {@code LargeBlock} reached the winning
+	 * Position defined by {@code END_Positions}, {@code false} otherwise.
 	 */
 	public boolean isWon() {
 		return this.isWon;
