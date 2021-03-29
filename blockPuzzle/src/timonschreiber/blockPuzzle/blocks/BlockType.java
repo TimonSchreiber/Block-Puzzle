@@ -6,7 +6,7 @@ import java.awt.Color;
  * Block Type Class
  * 
  * @author		Timon Schreiber
- * @version		1.0 2021 February 27
+ * @version		1.1 2021 February 27
  */
 public enum BlockType {
 	

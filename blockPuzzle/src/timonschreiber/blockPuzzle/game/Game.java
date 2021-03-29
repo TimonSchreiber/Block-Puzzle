@@ -13,7 +13,7 @@ import timonschreiber.blockPuzzle.field.GameField;
  * Game Class
  * 
  * @author		Timon Schreiber
- * @version		1.0 2021 February 25
+ * @version		1.1 2021 February 25
  */
 public class Game {
 

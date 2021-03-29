@@ -4,7 +4,7 @@ package timonschreiber.blockPuzzle.field;
  * Move Class
  * 
  * @author		Timon Schreiber
- * @version		1.0 2021 February 22
+ * @version		1.1 2021 February 22
  */
 public final class Move {
 

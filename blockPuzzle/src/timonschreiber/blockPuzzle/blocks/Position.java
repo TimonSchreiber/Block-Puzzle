@@ -6,7 +6,7 @@ import timonschreiber.blockPuzzle.field.Direction;
  * Position Class
  * 
  * @author		Timon Schreiber
- * @version		1.0 2021 February 21
+ * @version		1.1 2021 February 21
  */
 public final class Position {
 

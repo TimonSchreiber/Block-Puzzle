@@ -7,7 +7,7 @@ import java.util.List;
  * Start Position Class
  * 
  * @author		Timon Schreiber
- * @version		1.0 2021 March 22
+ * @version		1.1 2021 March 22
  */
 public record StartPosition(List<BlockInfo> blockInfos) implements Iterable<BlockInfo> {
 

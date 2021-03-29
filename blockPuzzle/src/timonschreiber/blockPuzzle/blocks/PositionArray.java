@@ -13,7 +13,7 @@ import timonschreiber.blockPuzzle.field.GameField;
  * Position Array Class
  * 
  * @author		Timon Schreiber
- * @version		1.0 2021 February 24
+ * @version		1.1 2021 February 24
  */
 public final class PositionArray implements Iterable<Position> {
 	

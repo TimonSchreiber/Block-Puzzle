@@ -6,11 +6,11 @@ import java.util.List;
 
 import timonschreiber.blockPuzzle.blocks.Block;
 
-/** TODO void methods OK?
+/**
  * Move Array Class
  * 
  * @author		Timon Schreiber
- * @version		1.0 2021 February 11
+ * @version		1.1 2021 February 11
  */
 public final class MoveArray implements Iterable<Move> {
 

@@ -11,7 +11,7 @@ import timonschreiber.blockPuzzle.blocks.PositionArray;
  * Game Field Class
  * 
  * @author		Timon Schreiber
- * @version		1.0 2021 February 13
+ * @version		1.1 2021 February 13
  */
 public class GameField {
 

@@ -1,10 +1,10 @@
 package timonschreiber.blockPuzzle.field;
 
-/**
+/** TODO is #next() used?
  * Direction Class
  * 
  * @author Timon Schreiber
- * @version 1.0 2021 February 11
+ * @version 1.1 2021 February 11
  */
 public enum Direction {
 

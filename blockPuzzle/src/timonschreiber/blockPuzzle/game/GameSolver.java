@@ -18,7 +18,7 @@ import timonschreiber.blockPuzzle.field.MoveArray;
  * Game Solver Class
  * 
  * @author		Timon Schreiber
- * @version		1.0 2021 February 13
+ * @version		1.1 2021 February 13
  */
 public class GameSolver {
 

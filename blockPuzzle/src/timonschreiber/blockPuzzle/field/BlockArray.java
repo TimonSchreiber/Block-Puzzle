@@ -11,7 +11,7 @@ import timonschreiber.blockPuzzle.blocks.Position;
  * Block Array Class
  * 
  * @author		Timon Schreiber
- * @version		1.0 2021 February 28
+ * @version		1.1 2021 February 28
  */
 public final class BlockArray implements Iterable<Block> {
 
