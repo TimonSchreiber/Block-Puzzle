@@ -73,19 +73,21 @@ public class GameField {
 	// =========================================================================
 
 	/** TODO
-	 * Checks if the Game is won.
+	 * Checks if the {@code Game} is won.
 	 * 
 	 * @return	{@code true} if the {@code LargeBlock} reached the winning
-	 * Position defined by {@code END_Positions}, {@code false} otherwise.
+	 * Position defined by {@link END_Positions}, {@code false} otherwise.
 	 */
 	public boolean isWon() {
 		return this.isWon;
 	}
 	
-	/** TODO
+	/** Checks if the {@code Block} satisfies the winning condition.
 	 * 
-	 * @param block
-	 * @return
+	 * @param block		the {@code Block}
+	 * @return			{@code true} if the {@code Block} occupies all
+	 * 					{@code Position}s defined by {@link END_POSITION},
+	 * 					{@code false} otherwise.
 	 */
 	private boolean isWon(Block block) {
 		int counter = 0;
@@ -97,10 +99,10 @@ public class GameField {
 		return counter == GameField.END_POSITIONS.getSize();
 	}
 
-	/** TODO
-	 * Gets the BlockArray
+	/**
+	 * Gets the {@code BlockArray}.
 	 * 
-	 * @return	the BlockArray
+	 * @return	the {@code BlockArray}
 	 */
 	public BlockArray getBlocks() {
 		return new BlockArray(this.blocks);
@@ -110,9 +112,10 @@ public class GameField {
 	// PLACE-BLOCK - METHOD
 	// =========================================================================
 
-	/** TODO
+	/**
+	 * Places a {@code Block} onto this {@code GameField}.
 	 * 
-	 * @param block
+	 * @param block		the {@code Block}
 	 */
 	public void placeBlock(Block block) {
 		this.blocks.addBlock(new Block(block));
@@ -123,10 +126,14 @@ public class GameField {
 	// IS-COLLISION-FREE - METHOD
 	// =========================================================================
 
-	/** TODO
+	/**
+	 * Checks if the {@code Move} can be performed or if this will result in an
+	 * illegal {@code GameField} by overlapping two (or more) {@code Block}s, or
+	 * by leaving the boundaries of this {@code GameField}.
 	 * 
-	 * @param move
-	 * @return
+	 * @param move	the {@code Move}
+	 * @return		{@code true} if this {@code Move} can be made, {@code false}
+	 * 				otherwise.
 	 */
 	private boolean isCollisionFree(Move move) {
 		Position tmpPos;
@@ -155,11 +162,13 @@ public class GameField {
 	// IS-VALID-MOVE - METHOD
 	// =========================================================================
 
-	/** TODO
-	 * Moves the Block defined by the Move into the direction of the Move
+	/**
+	 * Checks if the {@code Block} defined by the {@code Move} can be moved into
+	 * the {@code Direction} of the {@code Move}.
 	 * 
-	 * @param move	Move
-	 * @return		True if Move was made, otherwise False
+	 * @param move	the {@code Move}
+	 * @return		{@code true} if the {@code Move} was successful,
+	 * 				{@code false} otherwise.
 	 */
 	public boolean isValidMove(Move move) {
 		if (this.isCollisionFree(move)) {
@@ -174,8 +183,9 @@ public class GameField {
 	// PRINT - METHOD
 	// =========================================================================
 
-	/** TODO
-	 * Prints the Name of each Block for each Position on the Console
+	/**
+	 * Prints the Name of each {@code Block} for each {@code Position} on the
+	 * Console and "__" if there is no {@code Block}.
 	 */
 	public void print() {
 		Position tmpPos;
@@ -200,47 +210,52 @@ public class GameField {
 	// DRAW - METHODS
 	// =========================================================================
 
-	/** TODO
-	 * Draws the GameField onto a new Zeichenblatt.java.
+	/**
+	 * Draws the {@code GameField} onto a {@code Zeichenblatt.java} with a
+	 * time-delay.
 	 * 
-	 * @param size Size the GameField width and height are multiplied with
+	 * @param delay		the time delay between two {@code Move}s.
 	 */
 	public void draw(int delay) {
-		int size = 64;
+		final int size = 64;
+		
+		final double one = 1;
+		final double shift = 0.5;
 		
 		// new Zeichenblatt.java
 		if (this.gameField == null) {
-			this.gameField = new Zeichenblatt((GameField.WIDTH + 1) * size,
-					(GameField.HEIGHT + 1) * size);
+			this.gameField = new Zeichenblatt(
+					(int) ((GameField.WIDTH + one) * size),
+					(int) ((GameField.HEIGHT + one) * size));
 			this.gameField.benutzerkoordinaten(0.0, 0.0,
-					GameField.WIDTH + 1,
-					GameField.HEIGHT + 1);
+					GameField.WIDTH + one,
+					GameField.HEIGHT + one);
 		} else {
 			this.gameField.loeschen();
 		}
 
 		// draw light grey square (outline)
 		this.gameField.setVordergrundFarbe(Color.lightGray);
-		this.gameField.rechteck(GameField.WIDTH + 1, GameField.HEIGHT + 1);
+		this.gameField.rechteck(GameField.WIDTH + one, GameField.HEIGHT + one);
 
 		// draw red square in the bottom right corner (marks goal)
 		this.gameField.setVordergrundFarbe(Color.red);
 		for (Position pos : GameField.END_POSITIONS) {
-			this.gameField.rechteck(pos.getX() + 0.5,
-					pos.getY() + 0.5, 1.0, 1.0);
+			this.gameField.rechteck(pos.getX() + shift,
+					pos.getY() + shift, one, one);
 		}
 
 		// draw white center square (the game field)
 		this.gameField.setVordergrundFarbe(Color.white);
-		this.gameField.rechteck(0.5, 0.5,
+		this.gameField.rechteck(shift, shift,
 				GameField.WIDTH, GameField.HEIGHT);
 		
-		// draw each block
+		// draw each {@code Block}
 		for (Block blk : this.blocks) {
 			for (Position pos : blk.getPositions()) {
 				this.gameField.setVordergrundFarbe(blk.getColor());
-				this.gameField.rechteck(pos.getX() + 0.5,
-						pos.getY() + 0.5, 1.0, 1.0);
+				this.gameField.rechteck(pos.getX() + shift,
+						pos.getY() + shift, one, one);
 			}
 		}
 		
@@ -253,9 +268,8 @@ public class GameField {
 		return;
 	}
 
-	/** TODO
-	 * Draw the GameField onto a new Zeichenblatt.java with the height and width
-	 * multiplied by 64 (medium sized window)
+	/**
+	 * Draws the {@code GameField} onto a {@code Zeichenblatt.java}.
 	 */
 	public void draw() {
 		this.draw(0);

@@ -113,7 +113,7 @@ public class GameSolver {
 						this.states.add(this.game.field.getBlocks());
 						this.moveArray.addMove(nextMove);
 						
-//						this.game.field.draw(500); XXX
+						this.game.field.draw(500);
 						return true;
 						
 					}

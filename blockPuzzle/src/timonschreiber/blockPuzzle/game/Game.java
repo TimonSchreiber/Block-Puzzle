@@ -49,7 +49,7 @@ public class Game {
 					blkInf.direction()));
 		}
 
-//		this.field.draw(); XXX
+		this.field.draw();
 	}
 
 	// =========================================================================
