@@ -22,10 +22,10 @@ public final class Move {
 	// CONSTRUCTOR
 	// =========================================================================
 
-	/** TODO
+	/** Class constructor form a {@code BlockName} and {@code Direction}.
 	 * 
-	 * @param blockName
-	 * @param direction
+	 * @param blockName		the {@code BlockName}
+	 * @param direction		the {@code Direction}
 	 */
 	public Move(String blockName, Direction direction) {
 		this.blockName = new String(blockName);
@@ -33,7 +33,7 @@ public final class Move {
 	}
 
 	/**
-	 * Class constructor with {@code Move}.
+	 * Class constructor from a {@code Move}.
 	 * 
 	 * @param move	the {@code Move}
 	 */

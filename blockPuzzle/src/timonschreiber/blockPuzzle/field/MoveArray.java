@@ -55,13 +55,13 @@ public final class MoveArray implements Iterable<Move> {
 		return new Move(this.moves.get(index));
 	}
 	
-	/** TODO
+	/**
 	 * Gets the last {@code Move} in this {@code MoveArray}.
 	 * 
 	 * @return		the last {@code Move}
 	 */
 	public Move getLastMove() {
-		return this.moves.get(this.moves.size() - 1);
+		return this.getMove(this.moves.size() - 1);
 	}
 
 	// =========================================================================
@@ -76,7 +76,6 @@ public final class MoveArray implements Iterable<Move> {
 	 */
 	public void addMove(Move move) {
 		this.moves.add(new Move(move));
-		
 		return;
 	}
 

@@ -27,7 +27,7 @@ public class Game {
 	// -------------------------------------------------------------------------
 
 	/** {@code Game Field} */
-	GameField field;
+	protected GameField field;
 
 	// =========================================================================
 	// CONSTRUCTOR
@@ -43,10 +43,11 @@ public class Game {
 		Game.setUpStartingPositions();
 		
 		for (BlockInfo blkInf : Game.startingPositions.get(gameID)) {
-			this.field.placeBlock(new Block(
-					blkInf.position(),
-					blkInf.size(),
-					blkInf.direction()));
+			this.field.placeBlock(
+					new Block(
+							blkInf.position(),
+							blkInf.size(),
+							blkInf.direction()));
 		}
 
 		this.field.draw();
@@ -63,21 +64,24 @@ public class Game {
 
 		// Game 0 - 13 Moves
 		
-		Game.startingPositions.add(new StartPosition(new ArrayList<>(Arrays.asList(
-				new BlockInfo(new Position(4, 2), 4, Direction.R),		// 1 Large Square
-				new BlockInfo(new Position(0, 2), 3, Direction.R),		// 4 Elbows
-				new BlockInfo(new Position(1, 0), 3, Direction.L),
-				new BlockInfo(new Position(0, 4), 3, Direction.R),
-				new BlockInfo(new Position(2, 3), 3, Direction.L),
-				new BlockInfo(new Position(3, 3), 2, Direction.U),		// 3 Rectangles
-				new BlockInfo(new Position(4, 3), 2, Direction.U),
-				new BlockInfo(new Position(4, 0), 2, Direction.R),
-				new BlockInfo(new Position(2, 0), 1, Direction.D),		// 6 Squares
-				new BlockInfo(new Position(3, 0), 1, Direction.D),
-				new BlockInfo(new Position(2, 1), 1, Direction.D),
-				new BlockInfo(new Position(3, 1), 1, Direction.D),
-				new BlockInfo(new Position(2, 2), 1, Direction.D),
-				new BlockInfo(new Position(3, 2), 1, Direction.D)))));
+		Game.startingPositions.add(
+				new StartPosition(
+						new ArrayList<>(
+								Arrays.asList(
+										new BlockInfo(new Position(4, 2), 4, Direction.R),		// 1 Large Square
+										new BlockInfo(new Position(0, 2), 3, Direction.R),		// 4 Elbows
+										new BlockInfo(new Position(1, 0), 3, Direction.L),
+										new BlockInfo(new Position(0, 4), 3, Direction.R),
+										new BlockInfo(new Position(2, 3), 3, Direction.L),
+										new BlockInfo(new Position(3, 3), 2, Direction.U),		// 3 Rectangles
+										new BlockInfo(new Position(4, 3), 2, Direction.U),
+										new BlockInfo(new Position(4, 0), 2, Direction.R),
+										new BlockInfo(new Position(2, 0), 1, Direction.D),		// 6 Squares
+										new BlockInfo(new Position(3, 0), 1, Direction.D),
+										new BlockInfo(new Position(2, 1), 1, Direction.D),
+										new BlockInfo(new Position(3, 1), 1, Direction.D),
+										new BlockInfo(new Position(2, 2), 1, Direction.D),
+										new BlockInfo(new Position(3, 2), 1, Direction.D)))));
 
 		// ---------------------------------------------------------------------
 

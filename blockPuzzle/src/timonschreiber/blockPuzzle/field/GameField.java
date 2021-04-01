@@ -30,8 +30,10 @@ public class GameField {
 
 	/** Winning Positions {@code PositionArray}*/
 	public static final PositionArray END_POSITIONS = new PositionArray(
-			new Position(4, 0), new Position(4, 1),
-			new Position(5, 0), new Position(5, 1));
+			new Position(4, 0),
+			new Position(4, 1),
+			new Position(5, 0),
+			new Position(5, 1));
 	
 	// -------------------------------------------------------------------------
 	
@@ -42,7 +44,7 @@ public class GameField {
 	private BlockArray blocks;
 
 	/** Canvas to draw the {@code GameField} on */
-	private Zeichenblatt gameField;
+	private Zeichenblatt canvas;
 
 	// =========================================================================
 	// CONSTRUCTORS
@@ -91,6 +93,7 @@ public class GameField {
 	 */
 	private boolean isWon(Block block) {
 		int counter = 0;
+		
 		for (Position pos : block.getPositions()) {
 			if (GameField.END_POSITIONS.contains(pos)) {
 				counter++;
@@ -140,22 +143,28 @@ public class GameField {
 		Block tmpBlk = new Block(this.blocks.getBlock(move.getName()));
 
 		for (Position pos : tmpBlk.getPositions()) {
-			tmpPos = new Position(pos.getX(), pos.getY());
+			tmpPos = (new Position(pos.getX(), pos.getY())).
+					moveTowards(move.getDirection());
 			
-			tmpPos = tmpPos.moveTowards(move.getDirection());
-			
+			// Checks if the new Position is inside the GameField
 			if (tmpPos.isInInterval(0, GameField.WIDTH, 0, GameField.HEIGHT)) {
+				
+				// Checks if there is already a Block at this Positions
 				if (this.blocks.isBlock(tmpPos)) {
-					if (this.blocks.getBlock(tmpPos).getName().equals(tmpBlk.getName())) {
+					
+					// Checks if it is the same Block as the one about to be moved
+					if (this.blocks.getBlock(tmpPos).getName().equals(
+							tmpBlk.getName())) {
+						
 					} else {
-						return false;
+						return false;	// not the same Block
 					}
 				}
 			} else {
-				return false;
+				return false;	// outside GameField
 			}
 		}
-		return true;
+		return true;	// inside GameField and no collision
 	}
 
 	// =========================================================================
@@ -171,6 +180,7 @@ public class GameField {
 	 * 				{@code false} otherwise.
 	 */
 	public boolean isValidMove(Move move) {
+		
 		if (this.isCollisionFree(move)) {
 			this.blocks.move(move);
 			this.isWon = this.isWon(this.getBlocks().getBlock(move.getName()));
@@ -191,9 +201,12 @@ public class GameField {
 		Position tmpPos;
 		
 		for (int i = (GameField.HEIGHT - 1); i >= 0; i--) {
+			
 			for (int j = 0; j < GameField.WIDTH; j++) {
+				
 				tmpPos = new Position(j, i);
 				System.out.print(" ");
+				
 				if (this.blocks.isBlock(tmpPos)) {
 					System.out.print(this.blocks.getBlock(tmpPos).getName());
 				} else {
@@ -219,50 +232,51 @@ public class GameField {
 	public void draw(int delay) {
 		final int size = 64;
 		
-		final double one = 1;
+		final double one = 1.0;
 		final double shift = 0.5;
 		
 		// new Zeichenblatt.java
-		if (this.gameField == null) {
-			this.gameField = new Zeichenblatt(
+		if (this.canvas == null) {
+			this.canvas = new Zeichenblatt(
 					(int) ((GameField.WIDTH + one) * size),
 					(int) ((GameField.HEIGHT + one) * size));
-			this.gameField.benutzerkoordinaten(0.0, 0.0,
+			this.canvas.benutzerkoordinaten(0.0, 0.0,
 					GameField.WIDTH + one,
 					GameField.HEIGHT + one);
 		} else {
-			this.gameField.loeschen();
+			this.canvas.loeschen();
 		}
 
 		// draw light grey square (outline)
-		this.gameField.setVordergrundFarbe(Color.lightGray);
-		this.gameField.rechteck(GameField.WIDTH + one, GameField.HEIGHT + one);
+		this.canvas.setVordergrundFarbe(Color.lightGray);
+		this.canvas.rechteck(GameField.WIDTH + one, GameField.HEIGHT + one);
 
 		// draw red square in the bottom right corner (marks goal)
-		this.gameField.setVordergrundFarbe(Color.red);
+		this.canvas.setVordergrundFarbe(Color.red);
+
 		for (Position pos : GameField.END_POSITIONS) {
-			this.gameField.rechteck(pos.getX() + shift,
-					pos.getY() + shift, one, one);
+			this.canvas.rechteck(pos.getX() + one,
+					pos.getY(), one, one);
 		}
 
 		// draw white center square (the game field)
-		this.gameField.setVordergrundFarbe(Color.white);
-		this.gameField.rechteck(shift, shift,
+		this.canvas.setVordergrundFarbe(Color.white);
+		this.canvas.rechteck(shift, shift,
 				GameField.WIDTH, GameField.HEIGHT);
 		
 		// draw each {@code Block}
 		for (Block blk : this.blocks) {
 			for (Position pos : blk.getPositions()) {
-				this.gameField.setVordergrundFarbe(blk.getColor());
-				this.gameField.rechteck(pos.getX() + shift,
+				this.canvas.setVordergrundFarbe(blk.getColor());
+				this.canvas.rechteck(pos.getX() + shift,
 						pos.getY() + shift, one, one);
 			}
 		}
 		
 		// show
-		this.gameField.anzeigen();
+		this.canvas.anzeigen();
 		if (delay > 0) {
-			this.gameField.pause(delay);
+			this.canvas.pause(delay);
 		}
 		
 		return;
