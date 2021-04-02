@@ -120,6 +120,11 @@ public final class Block {
 		return tmpPA;
 	}
 	
+	/** TODO
+	 * 
+	 * @param size
+	 * @return
+	 */
 	private Color createColor(int size) {
 		Color tmpClr = BlockType.getColor(size);
 		
