@@ -43,6 +43,9 @@ public class GameSolver {
 
 	/** {@code Game} */
 	private Game game;
+	
+	/** List of {@code ShortCut}s */
+	private List<ShortCut> shortCuts;
 
 	// =========================================================================
 	// CONSTRUCTOR
@@ -109,7 +112,7 @@ public class GameSolver {
 						this.states.add(this.game.field.getBlocks());
 						this.moveArray.addMove(nextMove);
 						
-						this.game.field.draw(500);
+						this.game.field.draw();
 						return true;
 						
 					}
@@ -128,7 +131,6 @@ public class GameSolver {
 	 * Tries to solve the {@code BlockPuzzle}.
 	 */
 	public void solve() {
-		
 		System.out.println("START\n");
 		Instant t1 = Instant.now();
 
@@ -174,6 +176,8 @@ public class GameSolver {
 	 * reversing from the final state to the start state
 	 */
 	private void createSolution() {
+		System.out.println("\n\t#createSolution");	// XXX
+		
 		this.solution = new ArrayList<>();
 		
 		this.reverseGame();
@@ -210,6 +214,8 @@ public class GameSolver {
 	 * @param from	current State number
 	 */
 	private void reverseGame(int from) {
+		System.out.println("\n\t#reverseGame from #" + from);	// XXX
+		
 		for (int i = (from - 1); i >= 0; i--) {
 			this.game.field.isValidMove(this.moveArray.getMove(i).reverse());
 		}
@@ -220,14 +226,24 @@ public class GameSolver {
 	// SHOW-MOVES - METHODS
 	// =========================================================================
 
-	/** TODO
+	/** TODO separate findShortCut from showMoves (maybe createSOlution?)
 	 * Shows the Moves from Start to End with a time delay between two moves.
 	 * 
 	 * @param delay		the time delay in milliseconds
 	 */
 	public void showMoves(int delay) {
-		BlockArray tmpBlks = null;
+		System.out.println("\n\t#showMoves");	// XXX
 		
+		BlockArray tmpBlks = null;
+
+		this.reverseGame();
+
+		for (Move mv : this.moveArray) {
+			this.game.field.isValidMove(mv);
+			this.game.field.draw(delay);
+		}
+		
+		// different method?
 		this.createSolution();
 		
 		for (BlockArray blks : this.solution) {
@@ -235,15 +251,8 @@ public class GameSolver {
 					<= this.solution.indexOf(tmpBlks)) {
 				continue;	// skips to the BlockArray AFTER tmpBlks in solution
 			}
-			this.reverseGame();
+			this.reverseGame(this.solution.indexOf(blks));
 			tmpBlks = this.findShortCut(blks);
-		}
-
-		this.reverseGame();
-
-		for (Move mv : this.moveArray) {
-			this.game.field.isValidMove(mv);
-			this.game.field.draw(delay);
 		}
 
 		return;
@@ -267,14 +276,21 @@ public class GameSolver {
 	 * Get a shorter solution by finding a short cut
 	 */
 	private BlockArray findShortCut(BlockArray blocks) {
+		System.out.println("\n\t#findShortCut from state #"
+						+ this.solution.indexOf(blocks));	// XXX
+		
+		this.shortCuts = new ArrayList<>();
+		
+		int index = this.solution.indexOf(blocks);
 		Move tmpMv;
 		GameField tmpFld;
 
-		// suche nur an einer Stelle pro aufruf der methode XXX
 		for (Move mv : this.moveArray) {
 			
 			if (this.game.field.getBlocks().equals(blocks)) {
+				this.game.field.print();	// XXX
 			} else {
+				System.out.println(mv);	// XXX
 				this.game.field.isValidMove(mv);
 				continue;	// skips the rest until Game#field is equal to blocks
 			}
@@ -286,83 +302,48 @@ public class GameSolver {
 				for (Direction dir : Direction.values()) {
 					
 					tmpMv = new Move(this.str, dir);
-					if (tmpMv.equals(mv)) { continue; }		// skips known moves
+					System.out.println("\nnew Move " + tmpMv);	// XXX
+					if (tmpMv.equals(mv)) {
+						System.out.println(" -> skipped");	// XXX
+						continue; }		// skips known moves
 					
 					tmpFld = new GameField(this.game.field.getBlocks());
 
 					if (tmpFld.isValidMove(tmpMv)) {
-						if (this.states.contains(tmpFld)) {
+						if (this.states.contains(tmpFld.getBlocks())) {
 							continue;
 						}
 
 						for (int j = (this.solution.size() - 1); j > (index + 1); j--) {
-							if (tmpFld.getState().isEqualState(this.solution[j])) {
+							if (tmpFld.getBlocks().isSimilar(this.solution.get(j))) {
+								
 								System.out.println("\nShortCut from " + index + ":");
-								(new GameField(this.solution[index])).print();
+								(new GameField(this.solution.get(index))).print();
+								
 								System.out.println("to " + j + ":");
-								(new GameField(this.solution[j])).print();
+								(new GameField(this.solution.get(j))).print();
+								
 								System.out.println("with " + tmpMv + " instead of:");
 								for (int k = index; k < j; k++) {
-									int l = 0;
-									System.out.println(++l + ": " + this.moveArray.getMove(k));
+									System.out.println((k - index) + ": " + this.moveArray.getMove(k));
 								}
-
-//								this.trimMoves(index, l, nextMove);
-//								this.trimSolution(index, l, nextMove);
-
-								return index;
+								
+								this.shortCuts.add(
+										new ShortCut(
+												this.solution.get(index),
+												this.solution.get(j),
+												tmpMv));
+								
+								return this.solution.get(j);
 							}
 						}
 					}
 				}
-				this.blockName = this.blockName.next();
+				this.str = this.next(this.str);
 			}
-			this.game.isValidMove(new Move(this.moveArray.getMove(index)));
 		}
-		return this.solution.length;
+		return this.solution.get(index);
 	}
-
-//	// =========================================================================
-//	// TRIM - METHODS
-//	// =========================================================================
-
-//
-//	/**
-//	 * 
-//	 * @param start
-//	 * @param end
-//	 * @param newMove
-//	 */
-//	@SuppressWarnings("unused")
-//	private void trimSolution(int start, int end, Move newMove) {
-//		System.out.println("\ntrimSolution()");
-//		System.out.println("start: " + start + ", end: " + end + ", newMove: " + newMove);
-//
-//		GameField tmpFld = new GameField(this.game.field.getState());
-//		BlockArray[] tmpBlkSts = new BlockArray[this.solution.length - (end - start)];
-//
-//		for (int i = 0; i <= start; i++) {
-//			tmpBlkSts[i] = new BlockArray(this.solution[i]);
-//		}
-//
-//		tmpFld.moveBlock(newMove);
-//		this.changeMoves(tmpFld.getState(), start, end);
-//
-//		for (int i = ++start; i < tmpBlkSts.length; i++) {
-//			tmpBlkSts[i] = new BlockArray(tmpFld.getState());
-//			if (i == this.moveArray.getSize()) {
-//				break;
-//			}
-//			tmpFld.moveBlock(this.moveArray.getMove(i));
-//		}
-//
-//		solution = new BlockArray[tmpBlkSts.length];
-//		for (int i = 0; i < this.solution.length; i++) {
-//			solution[i] = new BlockArray(tmpBlkSts[i]);
-//		}
-//
-//		return;
-//	}
 	
 	// =========================================================================
 	// NEXT -METHOD
