@@ -3,8 +3,6 @@ package timonschreiber.blockPuzzle.block;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 import timonschreiber.blockPuzzle.field.Direction;
 

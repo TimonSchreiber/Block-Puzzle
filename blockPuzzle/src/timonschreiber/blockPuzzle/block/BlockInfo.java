@@ -1,6 +1,5 @@
-package timonschreiber.blockPuzzle.game;
+package timonschreiber.blockPuzzle.block;
 
-import timonschreiber.blockPuzzle.block.Position;
 import timonschreiber.blockPuzzle.field.Direction;
 
 /**

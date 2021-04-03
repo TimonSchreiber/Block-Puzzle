@@ -3,6 +3,8 @@ package timonschreiber.blockPuzzle.game;
 import java.util.Iterator;
 import java.util.List;
 
+import timonschreiber.blockPuzzle.block.BlockInfo;
+
 /**
  * Start Position Class
  * 

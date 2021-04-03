@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import timonschreiber.blockPuzzle.block.Block;
+import timonschreiber.blockPuzzle.block.BlockInfo;
 import timonschreiber.blockPuzzle.block.Position;
 import timonschreiber.blockPuzzle.field.Direction;
 import timonschreiber.blockPuzzle.field.GameField;
