@@ -19,7 +19,7 @@ public final class BlockArray implements Iterable<Block> {
 	// ATTRIBUTE
 	// =========================================================================
 
-	/** Block Array */
+	/** {@code Block Array} */
 	private final List<Block> blocks;
 
 	// =========================================================================
@@ -36,7 +36,7 @@ public final class BlockArray implements Iterable<Block> {
 	/**
 	 * Class constructor from another {@code BlockArray}.
 	 * 
-	 * @param blockArray		the {@code BlockArray}
+	 * @param blockArray	the {@code BlockArray}
 	 */
 	public BlockArray(BlockArray blockArray) {
 		this.blocks = new ArrayList<>();

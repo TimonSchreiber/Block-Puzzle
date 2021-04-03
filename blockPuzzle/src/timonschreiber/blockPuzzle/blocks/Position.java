@@ -32,6 +32,16 @@ public final class Position {
 		this.x = x;
 		this.y = y;
 	}
+	
+	/**
+	 * Copy constructor.
+	 * 
+	 * @param position	the {@code Position}
+	 */
+	public Position(Position position) {
+		this.x = position.x;
+		this.y = position.y;
+	}
 
 	// =========================================================================
 	// GETTER - METHODS
@@ -76,6 +86,7 @@ public final class Position {
 			case U: y++; break;
 			}
 		}
+		
 		return new Position(x, y);
 	}
 	
@@ -113,6 +124,7 @@ public final class Position {
 		}
 		// Object must be Position at this point
 		Position other = (Position) obj;
+		
 		return (this.x == other.x) && (this.y == other.y);
 	}
 	
@@ -123,8 +135,10 @@ public final class Position {
 	public int hashCode() {
 		final int prime = 31;
 		int hash = 7;
+		
 		hash = prime * hash + this.x;
 		hash = prime * hash + this.y;
+		
 		return hash;
 	}
 	

@@ -29,23 +29,25 @@ public class GameSolver {
 	/** List of all {@code BlockNames} */
 	private final List<String> BLOCK_NAMES;
 	
+	// -------------------------------------------------------------------------
+	
 	/** alternative for-loop variable to iterate over {@code BLOCK_NAMES} */
 	private String str;
 
-	/** {@code MoveArray} to save every {@code Move} */
-	private MoveArray moveArray;
-
-	/** BlockArray Array for the solution */
+	/** List of {@code BlockArray}s for the solution */
 	private List<BlockArray> solution;
+	
+	/** List of {@code ShortCut}s to shorten the solution */
+	private List<ShortCut> shortCuts;
 
 	/** {@code HashSet} of {@code GameState} to save every unique state */
 	private Set<BlockArray> states;
 
+	/** {@code MoveArray} to save every {@code Move} */
+	private MoveArray moves;
+
 	/** {@code Game} */
 	private Game game;
-	
-	/** List of {@code ShortCut}s */
-	private List<ShortCut> shortCuts;
 
 	// =========================================================================
 	// CONSTRUCTOR
@@ -58,9 +60,13 @@ public class GameSolver {
 	 */
 	public GameSolver(int gameID) {
 		
-		this.moveArray = new MoveArray();
+		this.solution = new ArrayList<>();
+		
+		this.shortCuts = new ArrayList<>();
 		
 		this.states = new HashSet<>();
+		
+		this.moves = new MoveArray();
 		
 		this.game = new Game(gameID);
 
@@ -110,7 +116,7 @@ public class GameSolver {
 						this.game.field.isValidMove(nextMove);
 						
 						this.states.add(this.game.field.getBlocks());
-						this.moveArray.addMove(nextMove);
+						this.moves.addMove(nextMove);
 						
 						this.game.field.draw();
 						return true;
@@ -141,12 +147,12 @@ public class GameSolver {
 				// If GameSolver#isNewMove is false, the last Move will be reversed
 				while (!this.isNewMove()) {
 					
-					if (this.moveArray.getSize() == 0) {
+					if (this.moves.getSize() == 0) {
 						System.out.println("Can't find a move.");
 						return;
 					} else if (this.game.field.isValidMove(
-							this.moveArray.getLastMove().reverse())) {
-						this.moveArray.deleteLastMove();
+							this.moves.getLastMove().reverse())) {
+						this.moves.deleteLastMove();
 					} else {
 						System.out.println("Can't reverse last move.");
 						return;
@@ -156,7 +162,7 @@ public class GameSolver {
 		} finally {
 			Duration d = Duration.between(t1, Instant.now());
 			System.out.println("END\n");
-			System.out.println("\nNumber of moves made:\n" + this.moveArray.getSize());
+			System.out.println("\nNumber of moves made:\n" + this.moves.getSize());
 			System.out.println("\nNumber of states saved:\n" + this.states.size());
 			System.out.println("\nTime to solve:\n"
 								+ d.toMinutesPart() + " minutes, "
@@ -178,13 +184,11 @@ public class GameSolver {
 	private void createSolution() {
 		System.out.println("\n\t#createSolution");	// XXX
 		
-		this.solution = new ArrayList<>();
-		
 		this.reverseGame();
 		
 		this.solution.add(this.game.field.getBlocks());
 
-		for (Move mv : this.moveArray) {
+		for (Move mv : this.moves) {
 			if (this.game.field.isValidMove(mv)) {
 				this.solution.add(this.game.field.getBlocks());
 			} else {
@@ -204,7 +208,7 @@ public class GameSolver {
 	 * Reverses all Moves
 	 */
 	private void reverseGame() {
-		this.reverseGame(this.moveArray.getSize());
+		this.reverseGame(this.moves.getSize());
 		return;
 	}
 
@@ -217,7 +221,7 @@ public class GameSolver {
 		System.out.println("\n\t#reverseGame from #" + from);	// XXX
 		
 		for (int i = (from - 1); i >= 0; i--) {
-			this.game.field.isValidMove(this.moveArray.getMove(i).reverse());
+			this.game.field.isValidMove(this.moves.getMove(i).reverse());
 		}
 		return;
 	}
@@ -238,7 +242,7 @@ public class GameSolver {
 
 		this.reverseGame();
 
-		for (Move mv : this.moveArray) {
+		for (Move mv : this.moves) {
 			this.game.field.isValidMove(mv);
 			this.game.field.draw(delay);
 		}
@@ -279,13 +283,11 @@ public class GameSolver {
 		System.out.println("\n\t#findShortCut from state #"
 						+ this.solution.indexOf(blocks));	// XXX
 		
-		this.shortCuts = new ArrayList<>();
-		
 		int index = this.solution.indexOf(blocks);
 		Move tmpMv;
 		GameField tmpFld;
 
-		for (Move mv : this.moveArray) {
+		for (Move mv : this.moves) {
 			
 			if (this.game.field.getBlocks().equals(blocks)) {
 				this.game.field.print();	// XXX
@@ -325,7 +327,7 @@ public class GameSolver {
 								
 								System.out.println("with " + tmpMv + " instead of:");
 								for (int k = index; k < j; k++) {
-									System.out.println((k - index) + ": " + this.moveArray.getMove(k));
+									System.out.println((k - index) + ": " + this.moves.getMove(k));
 								}
 								
 								this.shortCuts.add(

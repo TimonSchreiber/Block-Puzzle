@@ -15,7 +15,7 @@ import timonschreiber.blockPuzzle.field.GameField;
  * @author		Timon Schreiber
  * @version		1.1 2021 February 24
  */
-public final class PositionArray implements Iterable<Position> {
+public final class PositionSet implements Iterable<Position> {
 	
 	// =========================================================================
 	// ATTRIBUTES
@@ -34,7 +34,7 @@ public final class PositionArray implements Iterable<Position> {
 	 * 
 	 * @param position	the {@code Position} values
 	 */
-	public PositionArray(Position... positions) {
+	public PositionSet(Position... positions) {
 		this.firstPosition = new Position(positions[0].getX(), positions[0].getY());
 		this.positions = new HashSet<>();
 		
@@ -43,16 +43,17 @@ public final class PositionArray implements Iterable<Position> {
 		}
 	}
 	
-	/** TODO
+	/**
+	 * Copy constructor.
 	 * 
 	 * @param positions
 	 */
-	public PositionArray(PositionArray positions) {
+	public PositionSet(PositionSet positions) {
 		this.firstPosition = positions.getMinPosition();
 		this.positions = new HashSet<>();
 		
 		for (Position pos : positions) {
-			this.positions.add(new Position(pos.getX(), pos.getY()));
+			this.positions.add(new Position(pos));
 		} 
 		
 	}
@@ -79,7 +80,7 @@ public final class PositionArray implements Iterable<Position> {
 	}
 	
 	/** TODO
-	 * Gets the lowest {@code Position} value of this {@code PositionArray}.
+	 * Gets the lowest {@code Position} value of this {@code PositionSet}.
 	 * 
 	 * @return	the lowest {@code Position}
 	 */
@@ -146,8 +147,8 @@ public final class PositionArray implements Iterable<Position> {
 		if ((obj == null) || (this.getClass() != obj.getClass())) {
 			return false;
 		}
-		// Object must be PositionArray at this point
-		PositionArray other = (PositionArray) obj;
+		// Object must be PositionSet at this point
+		PositionSet other = (PositionSet) obj;
 		return (this.positions == other.positions)
 				|| ((this.positions != null) && (this.positions.equals(other.positions)));
 	}
@@ -172,7 +173,7 @@ public final class PositionArray implements Iterable<Position> {
 	 */
 	@Override
 	public String toString() {
-		return "PositionArray [positions=" + this.positions + "]";
+		return "PositionSet [positions=" + this.positions + "]";
 	}
 	
 	// =========================================================================

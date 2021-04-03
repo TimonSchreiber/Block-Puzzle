@@ -25,11 +25,11 @@ public final class Block {
 	/** String with the name of the {@code Block}*/
 	private final String blockName;
 	
-	/** {@code Color} */
+	/** {@code Color} of the {@code Block} */
 	private final Color color;
 	
-	/** {@code PositionArray} */
-	private final PositionArray positions;
+	/** {@code PositionSet} with every {@code Position} the {@code Block} */
+	private final PositionSet positions;
 
 	// =========================================================================
 	// CONSTRUCTROS
@@ -39,7 +39,7 @@ public final class Block {
 	 * Class constructor with size and {@code BlockName}.
 	 * 
 	 * @param position		the {@code Position}
-	 * @param size			the length of the {@code PositionArray}
+	 * @param size			the length of the {@code PositionSet}
 	 * @param direction		the {@code Direction}
 	 */
 	public Block(Position position, int size, Direction direction) {
@@ -59,7 +59,7 @@ public final class Block {
 	public Block(Block block) {
 		this.blockName = new String(block.blockName);
 		this.color = new Color(block.color.getRGB());
-		this.positions = new PositionArray(block.positions);
+		this.positions = new PositionSet(block.positions);
 	}
 
 	// =========================================================================
@@ -87,8 +87,8 @@ public final class Block {
 	 * 
 	 * @return
 	 */
-	public PositionArray getPositions() {
-		return new PositionArray(this.positions);
+	public PositionSet getPositions() {
+		return new PositionSet(this.positions);
 	}
 	
 	// =========================================================================
@@ -102,10 +102,10 @@ public final class Block {
 	 * @param direction		the {@code Direction}
 	 * @param size			the size
 	 */
-	private PositionArray createPositionArray(Position position,
+	private PositionSet createPositionArray(Position position,
 											Direction direction, int size) {
 		Direction nextDir = direction.next();
-		PositionArray tmpPA = new PositionArray(position);
+		PositionSet tmpPA = new PositionSet(position);
 		
 		if (size >= 2) {
 			tmpPA.addPosition(direction);
@@ -140,7 +140,8 @@ public final class Block {
 	// =========================================================================
 
 	/** TODO is needed?
-	 * Checks if this {@code Block} has the same {@code Position}s
+	 * FIXME
+	 * Checks if this {@code Block} has the same {@code PositionSet}
 	 * as the second {@code Block}.
 	 * 
 	 * @param blocks	the {@code BlockArray}
@@ -148,29 +149,30 @@ public final class Block {
 	 * 					same {@code Position}s as one of the other
 	 * 					{@code Block}s; {@code false} otherwise
 	 */
-	public boolean isEqualBlock(BlockArray blocks) {
-		int counter;
-		for (Block blk : blocks) {
-			if (this.positions.getSize() == blk.getPositions().getSize()) {
-				counter = 0;
-				for (Position pos : this.positions) {
-					if (blk.getPositions().contains(pos)) {
-						counter++;
-					}
-				}
-				if (counter == this.positions.getSize()) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
+//	public boolean isEqualBlock(BlockArray blocks) {
+//		int counter;
+//		for (Block blk : blocks) {
+//			if (this.positions.getSize() == blk.getPositions().getSize()) {
+//				counter = 0;
+//				for (Position pos : this.positions) {
+//					if (blk.getPositions().contains(pos)) {
+//						counter++;
+//					}
+//				}
+//				if (counter == this.positions.getSize()) {
+//					return true;
+//				}
+//			}
+//		}
+//		return false;
+//	}
 
 	// =========================================================================
 	// MOVE - METHOD
 	// =========================================================================
 
-	/** TODO is void here OK? or do i need to return a new Block
+	/** TODO is void here OK? or do i need to return a new Block?
+	 * 
 	 * Moves this {@code Block} by changing every {@code Position}
 	 * to an adjacent coordinate.
 	 * 
