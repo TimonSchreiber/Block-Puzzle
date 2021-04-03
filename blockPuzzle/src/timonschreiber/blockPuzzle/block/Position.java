@@ -75,19 +75,20 @@ public final class Position implements Comparable<Position> {
 	 * @return
 	 */
 	public Position moveTowards(Direction... directions) {
-		int x = this.X;
-		int y = this.Y;
+		int newX = this.X;
+		int newY = this.Y;
 		
 		for (Direction dir : directions) {
 			switch (dir) {
-			case D: y--; break;
-			case L: x--; break;
-			case R: x++; break;
-			case U: y++; break;
+			case D: newY--; break;
+			case L: newX--; break;
+			case R: newX++; break;
+			case U: newY++; break;
+			default: break;
 			}
 		}
 		
-		return new Position(x, y);
+		return new Position(newX, newY);
 	}
 	
 	// =========================================================================
@@ -164,9 +165,13 @@ public final class Position implements Comparable<Position> {
 	// COMPARABLE
 	// -------------------------------------------------------------------------
 
+	/**
+	 * 
+	 */
 	@Override
 	public int compareTo(Position other) {
-		return (this.X != other.X) ? Integer.compare(this.X, other.X)
+		return (this.X != other.X)
+				? Integer.compare(this.X, other.X)
 				: Integer.compare(this.Y, other.Y);
 	}
 

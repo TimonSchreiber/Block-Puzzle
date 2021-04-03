@@ -28,9 +28,7 @@ public final class PositionList implements Iterable<Position> {
 	/** TODO
 	 * Class constructor form a {@code BlockInfo}.
 	 * 
-	 * @param position		the {@code Position}
-	 * @param size			the {@code size}
-	 * @param direction		the {@code Direction}
+	 * @param blockInfo
 	 */
 	public PositionList(BlockInfo blockInfo) {
 		this.POSITIONS = new ArrayList<>();
@@ -39,7 +37,8 @@ public final class PositionList implements Iterable<Position> {
 		case 4:
 			this.POSITIONS.add(
 					blockInfo.position().moveTowards(
-							blockInfo.direction()));
+							blockInfo.direction(),
+							blockInfo.direction().next()));
 			/* falls through */
 		case 3:
 			this.POSITIONS.add(
@@ -49,10 +48,11 @@ public final class PositionList implements Iterable<Position> {
 		case 2:
 			this.POSITIONS.add(
 					blockInfo.position().moveTowards(
-							blockInfo.direction(),
-							blockInfo.direction().next()));
-			break;
+							blockInfo.direction()));
+			/* falls through */
 		default:
+			this.POSITIONS.add(
+					blockInfo.position());
 			break;
 		}
 		
@@ -108,14 +108,12 @@ public final class PositionList implements Iterable<Position> {
 	// MOVE-TOWARDS - METHOD
 	// =========================================================================
 	
-	/** TODO is this the best way and (/or even) efficient? (new ArrayList)
+	/** TODO
 	 * 
 	 * @param directions
 	 */
 	public void moveTowards(Direction... directions) {
 		this.POSITIONS.replaceAll(p -> p.moveTowards(directions));
-		
-		return;
 	}
 	
 	// =========================================================================

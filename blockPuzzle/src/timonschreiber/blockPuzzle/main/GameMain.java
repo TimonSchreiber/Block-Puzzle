@@ -34,7 +34,7 @@ public class GameMain {
 			}
 		}
 		
-		solver.showMoves(500);
+//		solver.showMoves(500);
 		
 		return;
 	}

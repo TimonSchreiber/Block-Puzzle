@@ -42,8 +42,8 @@ public final class Block {
 	 * @param direction		the {@code Direction}
 	 */
 	public Block(BlockInfo blockInfo) {
-		this.BLOCK_NAME = new String(BlockType.getPrefix(blockInfo.size())
-				+ ++Block.BLOCK_COUNTER[blockInfo.size()]);
+		this.BLOCK_NAME = BlockType.getPrefix(blockInfo.size())
+				+ ++Block.BLOCK_COUNTER[blockInfo.size()];
 
 		this.COLOR = this.createColor(blockInfo.size());
 		

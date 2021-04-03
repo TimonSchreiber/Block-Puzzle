@@ -19,13 +19,29 @@ public enum BlockType {
 	ELBOW			("Y", Color.yellow),
 	LARGE_SQUARE	("R", Color.red);
 	
-	// TODO
-	private final String namePrefix;
-	private final Color color;
+	// =========================================================================
+	// ATTRIBUTES
+	// =========================================================================
 	
-	private BlockType(String namePrefix, Color color) {
-		this.namePrefix = namePrefix;
-		this.color = color;
+	/** A String with the first letter of the color */
+	private final String NAME_PREFIX;
+	
+	/** the color */
+	private final Color COLOR;
+	
+	// =========================================================================
+	// CONSTRUCTOR
+	// =========================================================================
+	
+	/**
+	 * Class constructor.
+	 * 
+	 * @param NAME_PREFIX	the NAME_PREFIX
+	 * @param COLOR			the COLOR
+	 */
+	private BlockType(String NAME_PREFIX, Color COLOR) {
+		this.NAME_PREFIX = NAME_PREFIX;
+		this.COLOR = COLOR;
 	}
 	
 	// =========================================================================
@@ -57,7 +73,7 @@ public enum BlockType {
 	 * @return
 	 */
 	public static String getPrefix(int area) {
-		return BlockType.VALUES[area - 1].namePrefix;
+		return BlockType.VALUES[area - 1].NAME_PREFIX;
 	}
 	
 	/** TODO
@@ -66,7 +82,7 @@ public enum BlockType {
 	 * @return
 	 */
 	public static Color getColor(int area) {
-		return BlockType.VALUES[area - 1].color;
+		return BlockType.VALUES[area - 1].COLOR;
 	}
 	
 	// =========================================================================

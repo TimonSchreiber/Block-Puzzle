@@ -164,7 +164,7 @@ public final class BlockList implements Iterable<Block> {
 			}
 		}
 		
-		return counter == this.getSize();
+		return (counter == this.getSize());
 	}
 	
 	// =========================================================================
