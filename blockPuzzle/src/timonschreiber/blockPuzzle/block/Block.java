@@ -27,8 +27,8 @@ public final class Block {
 	/** {@code Color} of the {@code Block} */
 	private final Color color;
 	
-	/** {@code PositionSet} with every {@code Position} the {@code Block} */
-	private final PositionSet positions;
+	/** {@code PositionList} with every {@code Position} the {@code Block} */
+	private final PositionList positions;
 
 	// =========================================================================
 	// CONSTRUCTROS
@@ -38,7 +38,7 @@ public final class Block {
 	 * Class constructor with size and {@code BlockName}.
 	 * 
 	 * @param position		the {@code Position}
-	 * @param size			the length of the {@code PositionSet}
+	 * @param size			the length of the {@code PositionList}
 	 * @param direction		the {@code Direction}
 	 */
 	public Block(Position position, int size, Direction direction) {
@@ -47,7 +47,7 @@ public final class Block {
 
 		this.color = this.createColor(size);
 		
-		this.positions = new PositionSet(position, size, direction);
+		this.positions = new PositionList(position, size, direction);
 	}
 
 	/** TODO is needed?
@@ -58,7 +58,7 @@ public final class Block {
 	public Block(Block block) {
 		this.blockName = new String(block.blockName);
 		this.color = new Color(block.color.getRGB());
-		this.positions = new PositionSet(block.positions);
+		this.positions = new PositionList(block.positions);
 	}
 
 	// =========================================================================
@@ -86,8 +86,8 @@ public final class Block {
 	 * 
 	 * @return
 	 */
-	public PositionSet getPositions() {
-		return new PositionSet(this.positions);
+	public PositionList getPositions() {
+		return new PositionList(this.positions);
 	}
 	
 	// =========================================================================

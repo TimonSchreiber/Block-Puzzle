@@ -5,7 +5,7 @@ import java.awt.Color;
 import timonschreiber.auxiliaries.Zeichenblatt;
 import timonschreiber.blockPuzzle.block.Block;
 import timonschreiber.blockPuzzle.block.Position;
-import timonschreiber.blockPuzzle.block.PositionSet;
+import timonschreiber.blockPuzzle.block.PositionList;
 
 /** TODO code-tags
  * Game Field Class
@@ -28,8 +28,8 @@ public class GameField {
 	/** preset game values for max number of {@code Block}s */
 	public static final int MAX_NUMBER_OF_BLOCKS = 14;
 
-	/** Winning Positions {@code PositionSet}*/
-	public static final PositionSet END_POSITIONS = new PositionSet(
+	/** Winning Positions {@code PositionList}*/
+	public static final PositionList END_POSITIONS = new PositionList(
 			new Position(4, 0),
 			new Position(4, 1),
 			new Position(5, 0),

@@ -14,7 +14,7 @@ import timonschreiber.blockPuzzle.field.Direction;
  * @author		Timon Schreiber
  * @version		1.1 2021 February 24
  */
-public final class PositionSet implements Iterable<Position> {
+public final class PositionList implements Iterable<Position> {
 	
 	// =========================================================================
 	// ATTRIBUTES
@@ -35,7 +35,7 @@ public final class PositionSet implements Iterable<Position> {
 	 * @param size			the {@code size}
 	 * @param direction		the {@code Direction}
 	 */
-	public PositionSet(Position position, int size, Direction direction) {
+	public PositionList(Position position, int size, Direction direction) {
 		this.positions = new ArrayList<>();
 		
 		switch (size) {
@@ -60,7 +60,7 @@ public final class PositionSet implements Iterable<Position> {
 	 * 
 	 * @param position	the {@code Position} values
 	 */
-	public PositionSet(Position... positions) {
+	public PositionList(Position... positions) {
 		this.positions = new ArrayList<>();
 		
 		for (Position pos : positions) {
@@ -75,7 +75,7 @@ public final class PositionSet implements Iterable<Position> {
 	 * 
 	 * @param positions
 	 */
-	public PositionSet(PositionSet positions) {
+	public PositionList(PositionList positions) {
 		this.positions = new ArrayList<>();
 		
 		for (Position pos : positions) {
@@ -107,7 +107,7 @@ public final class PositionSet implements Iterable<Position> {
 	}
 	
 	/** TODO
-	 * Gets the lowest {@code Position} value of this {@code PositionSet}.
+	 * Gets the lowest {@code Position} value of this {@code PositionList}.
 	 * 
 	 * @return	the lowest {@code Position}
 	 */
@@ -145,8 +145,8 @@ public final class PositionSet implements Iterable<Position> {
 			return false;
 		}
 		
-		// Object must be PositionSet at this point
-		PositionSet other = (PositionSet) obj;
+		// Object must be PositionList at this point
+		PositionList other = (PositionList) obj;
 		
 		return (this.positions == other.positions)
 				|| ((this.positions != null) && (this.positions.equals(other.positions)));
@@ -174,7 +174,7 @@ public final class PositionSet implements Iterable<Position> {
 	 */
 	@Override
 	public String toString() {
-		return "PositionSet [positions=" + this.positions + "]";
+		return "PositionList [positions=" + this.positions + "]";
 	}
 	
 	// =========================================================================
