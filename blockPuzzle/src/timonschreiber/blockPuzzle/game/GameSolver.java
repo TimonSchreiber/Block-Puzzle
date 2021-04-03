@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import timonschreiber.blockPuzzle.blocks.Block;
+import timonschreiber.blockPuzzle.block.Block;
 import timonschreiber.blockPuzzle.field.BlockArray;
 import timonschreiber.blockPuzzle.field.Direction;
 import timonschreiber.blockPuzzle.field.GameField;

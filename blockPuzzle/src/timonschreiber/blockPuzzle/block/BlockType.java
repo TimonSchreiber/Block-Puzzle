@@ -1,4 +1,4 @@
-package timonschreiber.blockPuzzle.blocks;
+package timonschreiber.blockPuzzle.block;
 
 import java.awt.Color;
 

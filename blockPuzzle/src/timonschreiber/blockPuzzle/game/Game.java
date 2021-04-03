@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import timonschreiber.blockPuzzle.blocks.Block;
-import timonschreiber.blockPuzzle.blocks.Position;
+import timonschreiber.blockPuzzle.block.Block;
+import timonschreiber.blockPuzzle.block.Position;
 import timonschreiber.blockPuzzle.field.Direction;
 import timonschreiber.blockPuzzle.field.GameField;
 

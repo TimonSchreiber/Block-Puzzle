@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import timonschreiber.blockPuzzle.blocks.Block;
+import timonschreiber.blockPuzzle.block.Block;
 
 /**
  * Move Array Class

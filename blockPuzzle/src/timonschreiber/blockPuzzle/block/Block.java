@@ -1,4 +1,4 @@
-package timonschreiber.blockPuzzle.blocks;
+package timonschreiber.blockPuzzle.block;
 
 import java.awt.Color;
 
@@ -149,23 +149,23 @@ public final class Block {
 	 * 					same {@code Position}s as one of the other
 	 * 					{@code Block}s; {@code false} otherwise
 	 */
-//	public boolean isEqualBlock(BlockArray blocks) {
-//		int counter;
-//		for (Block blk : blocks) {
-//			if (this.positions.getSize() == blk.getPositions().getSize()) {
-//				counter = 0;
-//				for (Position pos : this.positions) {
-//					if (blk.getPositions().contains(pos)) {
-//						counter++;
-//					}
-//				}
-//				if (counter == this.positions.getSize()) {
-//					return true;
-//				}
-//			}
-//		}
-//		return false;
-//	}
+	public boolean isEqualBlock(BlockArray blocks) {
+		int counter;
+		for (Block blk : blocks) {
+			if (this.positions.getSize() == blk.getPositions().getSize()) {
+				counter = 0;
+				for (Position pos : this.positions) {
+					if (blk.getPositions().contains(pos)) {
+						counter++;
+					}
+				}
+				if (counter == this.positions.getSize()) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 
 	// =========================================================================
 	// MOVE - METHOD

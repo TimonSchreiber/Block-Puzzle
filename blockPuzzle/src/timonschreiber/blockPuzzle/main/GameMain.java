@@ -2,6 +2,7 @@ package timonschreiber.blockPuzzle.main;
 
 import java.util.Scanner;
 
+import timonschreiber.blockPuzzle.block.Position;
 import timonschreiber.blockPuzzle.game.GameSolver;
 
 /**
@@ -14,27 +15,29 @@ public class GameMain {
 
 	public static void main(String[] args) {
 		
-		// System variables
-		// New Scanner
-		Scanner sc = new Scanner(System.in);
-
-		// Enter GameID
-		System.out.println("Enter the Game-ID you want to play:");
-
-		// Game variable
-		GameSolver solver = new GameSolver(sc.nextInt());
-
-		// solve
-		try {
-			solver.solve();
-		} finally {
-			// Close Scanner
-			if (sc != null) {
-				sc.close();
-			}
-		}
+		Set<Position> s1 = new HashSet<>();
 		
-		solver.showMoves(500);
+//		// System variables
+//		// New Scanner
+//		Scanner sc = new Scanner(System.in);
+//
+//		// Enter GameID
+//		System.out.println("Enter the Game-ID you want to play:");
+//
+//		// Game variable
+//		GameSolver solver = new GameSolver(sc.nextInt());
+//
+//		// solve
+//		try {
+//			solver.solve();
+//		} finally {
+//			// Close Scanner
+//			if (sc != null) {
+//				sc.close();
+//			}
+//		}
+//		
+//		solver.showMoves(500);
 		
 		return;
 	}

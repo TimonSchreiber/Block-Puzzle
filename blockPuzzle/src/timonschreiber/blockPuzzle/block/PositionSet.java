@@ -1,9 +1,7 @@
-package timonschreiber.blockPuzzle.blocks;
+package timonschreiber.blockPuzzle.block;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
 import timonschreiber.blockPuzzle.field.Direction;
@@ -21,8 +19,10 @@ public final class PositionSet implements Iterable<Position> {
 	// ATTRIBUTES
 	// =========================================================================
 
-	/** Position List */
+	/** first {@code Position} */
 	private final Position firstPosition;
+	
+	/** Set of {@code Position}s */
 	private final Set<Position> positions;
 	
 	// =========================================================================
@@ -35,11 +35,11 @@ public final class PositionSet implements Iterable<Position> {
 	 * @param position	the {@code Position} values
 	 */
 	public PositionSet(Position... positions) {
-		this.firstPosition = new Position(positions[0].getX(), positions[0].getY());
+		this.firstPosition = new Position(positions[0]);
 		this.positions = new HashSet<>();
 		
 		for (Position pos : positions) {
-			this.positions.add(new Position(pos.getX(), pos.getY()));
+			this.positions.add(new Position(pos));
 		}
 	}
 	
@@ -85,17 +85,7 @@ public final class PositionSet implements Iterable<Position> {
 	 * @return	the lowest {@code Position}
 	 */
 	public Position getMinPosition() {
-		int x = GameField.WIDTH;
-		int y = GameField.HEIGHT;
-
-		for (Position pos: this.positions) {
-			if ((pos.getX() + pos.getY()) < (x + y)) {
-				x = pos.getX();
-				y = pos.getY();
-			}
-		}
-
-		return new Position(x, y);
+		return ;
 	}
 
 	// =========================================================================
@@ -121,13 +111,13 @@ public final class PositionSet implements Iterable<Position> {
 	 * @param directions
 	 */
 	public void moveTowards(Direction... directions) {
-		List<Position> tmpList = new ArrayList<>();
+		Set<Position> tmpPos = new HashSet<>();
 		
-		this.positions.forEach(pos -> tmpList.add(pos.moveTowards(directions)));
+		this.positions.forEach(pos -> tmpPos.add(pos.moveTowards(directions)));
 		
 		this.positions.clear();
 		
-		tmpList.forEach(pos -> this.positions.add(pos));
+		tmpPos.forEach(pos -> this.positions.add(pos));
 		
 		return;
 	}
@@ -147,8 +137,10 @@ public final class PositionSet implements Iterable<Position> {
 		if ((obj == null) || (this.getClass() != obj.getClass())) {
 			return false;
 		}
+		
 		// Object must be PositionSet at this point
 		PositionSet other = (PositionSet) obj;
+		
 		return (this.positions == other.positions)
 				|| ((this.positions != null) && (this.positions.equals(other.positions)));
 	}
@@ -160,7 +152,9 @@ public final class PositionSet implements Iterable<Position> {
 	public int hashCode() {
 		final int prime = 31;
 		int hash = 7;
+		
 		hash = prime * hash + ((this.positions == null) ? 0 : this.positions.hashCode());
+		
 		return hash;
 	}
 	

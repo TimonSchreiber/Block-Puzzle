@@ -3,9 +3,9 @@ package timonschreiber.blockPuzzle.field;
 import java.awt.Color;
 
 import timonschreiber.auxiliaries.Zeichenblatt;
-import timonschreiber.blockPuzzle.blocks.Block;
-import timonschreiber.blockPuzzle.blocks.Position;
-import timonschreiber.blockPuzzle.blocks.PositionSet;
+import timonschreiber.blockPuzzle.block.Block;
+import timonschreiber.blockPuzzle.block.Position;
+import timonschreiber.blockPuzzle.block.PositionSet;
 
 /** TODO code-tags
  * Game Field Class

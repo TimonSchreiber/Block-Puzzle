@@ -1,4 +1,4 @@
-package timonschreiber.blockPuzzle.blocks;
+package timonschreiber.blockPuzzle.block;
 
 import timonschreiber.blockPuzzle.field.Direction;
 
@@ -119,9 +119,11 @@ public final class Position {
 		if (this == obj) {
 			return true;
 		}
+		
 		if ((obj == null) || (this.getClass() != obj.getClass())) {
 			return false;
 		}
+		
 		// Object must be Position at this point
 		Position other = (Position) obj;
 		

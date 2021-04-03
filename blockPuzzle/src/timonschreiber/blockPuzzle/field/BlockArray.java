@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import timonschreiber.blockPuzzle.blocks.Block;
-import timonschreiber.blockPuzzle.blocks.Position;
+import timonschreiber.blockPuzzle.block.Block;
+import timonschreiber.blockPuzzle.block.Position;
 
 /**
  * Block Array Class
