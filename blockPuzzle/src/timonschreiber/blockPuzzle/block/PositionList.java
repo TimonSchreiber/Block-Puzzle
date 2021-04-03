@@ -19,53 +19,44 @@ public final class PositionList implements Iterable<Position> {
 	// =========================================================================
 	
 	/** SortedSet of {@code Position}s */
-	private final List<Position> positions;
+	private final List<Position> POSITIONS;
 	
 	// =========================================================================
 	// CONSTRUCTORS
 	// =========================================================================
 	
 	/** TODO
-	 * Class constructor form a {@code Position} with additional information
-	 * in the form of size and direction.
+	 * Class constructor form a {@code BlockInfo}.
 	 * 
 	 * @param position		the {@code Position}
 	 * @param size			the {@code size}
 	 * @param direction		the {@code Direction}
 	 */
-	public PositionList(Position position, int size, Direction direction) {
-		this.positions = new ArrayList<>();
+	public PositionList(BlockInfo blockInfo) {
+		this.POSITIONS = new ArrayList<>();
 		
-		switch (size) {
+		switch (blockInfo.size()) {
 		case 4:
-			this.positions.add(position.moveTowards(direction));
+			this.POSITIONS.add(
+					blockInfo.position().moveTowards(
+							blockInfo.direction()));
 			/* falls through */
 		case 3:
-			this.positions.add(position.moveTowards(direction.reverse()));
+			this.POSITIONS.add(
+					blockInfo.position().moveTowards(
+							blockInfo.direction().next()));
 			/* falls through */
 		case 2:
-			this.positions.add(position.moveTowards(direction, direction.reverse()));
+			this.POSITIONS.add(
+					blockInfo.position().moveTowards(
+							blockInfo.direction(),
+							blockInfo.direction().next()));
 			break;
 		default:
 			break;
 		}
 		
-		this.positions.sort(null);
-	}
-	
-	/**
-	 * Class constructor from {@code Position} values.
-	 * 
-	 * @param position	the {@code Position} values
-	 */
-	public PositionList(Position... positions) {
-		this.positions = new ArrayList<>();
-		
-		for (Position pos : positions) {
-			this.positions.add(new Position(pos));
-		}
-		
-		this.positions.sort(null);
+		this.POSITIONS.sort(null);
 	}
 	
 	/**
@@ -74,13 +65,13 @@ public final class PositionList implements Iterable<Position> {
 	 * @param positions
 	 */
 	public PositionList(PositionList positions) {
-		this.positions = new ArrayList<>();
+		this.POSITIONS = new ArrayList<>();
 		
 		for (Position pos : positions) {
-			this.positions.add(new Position(pos));
+			this.POSITIONS.add(new Position(pos));
 		} 
 
-		this.positions.sort(null);
+		this.POSITIONS.sort(null);
 	}
 	
 	// =========================================================================
@@ -93,7 +84,7 @@ public final class PositionList implements Iterable<Position> {
 	 * @return
 	 */
 	public boolean contains(Position position) {
-		return this.positions.contains(position);
+		return this.POSITIONS.contains(position);
 	}
 	
 	/** TODO
@@ -101,7 +92,7 @@ public final class PositionList implements Iterable<Position> {
 	 * @return
 	 */
 	public int getSize() {
-		return this.positions.size();
+		return this.POSITIONS.size();
 	}
 	
 	/** TODO
@@ -110,7 +101,7 @@ public final class PositionList implements Iterable<Position> {
 	 * @return	the lowest {@code Position}
 	 */
 	public Position getFirst() {
-		return this.positions.get(0);
+		return this.POSITIONS.get(0);
 	}
 	
 	// =========================================================================
@@ -122,7 +113,7 @@ public final class PositionList implements Iterable<Position> {
 	 * @param directions
 	 */
 	public void moveTowards(Direction... directions) {
-		this.positions.replaceAll(p -> p.moveTowards(directions));
+		this.POSITIONS.replaceAll(p -> p.moveTowards(directions));
 		
 		return;
 	}
@@ -146,8 +137,8 @@ public final class PositionList implements Iterable<Position> {
 		// Object must be PositionList at this point
 		PositionList other = (PositionList) obj;
 		
-		return (this.positions == other.positions)
-				|| ((this.positions != null) && (this.positions.equals(other.positions)));
+		return (this.POSITIONS == other.POSITIONS)
+				|| ((this.POSITIONS != null) && (this.POSITIONS.equals(other.POSITIONS)));
 	}
 	
 	/** TODO
@@ -158,7 +149,7 @@ public final class PositionList implements Iterable<Position> {
 		final int prime = 31;
 		int hash = 7;
 		
-		hash = prime * hash + ((this.positions == null) ? 0 : this.positions.hashCode());
+		hash = prime * hash + ((this.POSITIONS == null) ? 0 : this.POSITIONS.hashCode());
 		
 		return hash;
 	}
@@ -172,7 +163,7 @@ public final class PositionList implements Iterable<Position> {
 	 */
 	@Override
 	public String toString() {
-		return "PositionList [positions=" + this.positions + "]";
+		return "PositionList [positions=" + this.POSITIONS + "]";
 	}
 	
 	// =========================================================================
@@ -188,7 +179,7 @@ public final class PositionList implements Iterable<Position> {
 	 */
 	@Override
 	public Iterator<Position> iterator() {
-		return this.positions.iterator();
+		return this.POSITIONS.iterator();
 	}
 	
 	// =========================================================================

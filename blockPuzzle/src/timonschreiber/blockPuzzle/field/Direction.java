@@ -41,7 +41,7 @@ public enum Direction {
 	// NEXT - METHOD
 	// =========================================================================
 
-	/** TODO not used
+	/**
 	 * Returns the next <code>Direction</code> constant.
 	 * 
 	 * @return	the next <code>Direction</code> constant

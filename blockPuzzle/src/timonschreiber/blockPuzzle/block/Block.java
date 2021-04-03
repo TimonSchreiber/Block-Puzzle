@@ -17,18 +17,18 @@ public final class Block {
 	// =========================================================================
 	
 	/** static counter for different types of {@code Block}s */
-	private static final int[] blockCounter = new int[BlockType.getSize()];
+	private static final int[] BLOCK_COUNTER = new int[BlockType.getSize() + 1];
 	
 	// -------------------------------------------------------------------------
 
 	/** String with the name of the {@code Block}*/
-	private final String blockName;
+	private final String BLOCK_NAME;
 	
 	/** {@code Color} of the {@code Block} */
-	private final Color color;
+	private final Color COLOR;
 	
 	/** {@code PositionList} with every {@code Position} the {@code Block} */
-	private final PositionList positions;
+	private final PositionList POSITIONS;
 
 	// =========================================================================
 	// CONSTRUCTROS
@@ -41,13 +41,13 @@ public final class Block {
 	 * @param size			the length of the {@code PositionList}
 	 * @param direction		the {@code Direction}
 	 */
-	public Block(Position position, int size, Direction direction) {
-		this.blockName = new String(BlockType.getPrefix(size)
-				+ ++Block.blockCounter[size - 1]);
+	public Block(BlockInfo blockInfo) {
+		this.BLOCK_NAME = new String(BlockType.getPrefix(blockInfo.size())
+				+ ++Block.BLOCK_COUNTER[blockInfo.size()]);
 
-		this.color = this.createColor(size);
+		this.COLOR = this.createColor(blockInfo.size());
 		
-		this.positions = new PositionList(position, size, direction);
+		this.POSITIONS = new PositionList(blockInfo);
 	}
 
 	/** TODO is needed?
@@ -56,9 +56,9 @@ public final class Block {
 	 * @param block		the {@code Block}
 	 */
 	public Block(Block block) {
-		this.blockName = new String(block.blockName);
-		this.color = new Color(block.color.getRGB());
-		this.positions = new PositionList(block.positions);
+		this.BLOCK_NAME = new String(block.BLOCK_NAME);
+		this.COLOR = new Color(block.COLOR.getRGB());
+		this.POSITIONS = new PositionList(block.POSITIONS);
 	}
 
 	// =========================================================================
@@ -71,7 +71,7 @@ public final class Block {
 	 * @return	the {@code Color}
 	 */
 	public Color getColor() {
-		return new Color(this.color.getRGB());
+		return new Color(this.COLOR.getRGB());
 	}
 
 	/** TODO
@@ -79,7 +79,7 @@ public final class Block {
 	 * @return
 	 */
 	public String getName() {
-		return new String(this.blockName);
+		return new String(this.BLOCK_NAME);
 	}
 	
 	/** TODO
@@ -87,7 +87,7 @@ public final class Block {
 	 * @return
 	 */
 	public PositionList getPositions() {
-		return new PositionList(this.positions);
+		return new PositionList(this.POSITIONS);
 	}
 	
 	// =========================================================================
@@ -105,7 +105,7 @@ public final class Block {
 	private Color createColor(int size) {
 		Color tmpClr = BlockType.getColor(size);
 		
-		for (int i = 1; i < Block.blockCounter[size - 1]; i++) {
+		for (int i = 1; i < Block.BLOCK_COUNTER[size]; i++) {
 			tmpClr = tmpClr.darker();
 		}
 		
@@ -124,7 +124,7 @@ public final class Block {
 	 * @param direction		the {@code Direction}
 	 */
 	public void moveTowards(Direction direction) {
-		this.positions.moveTowards(direction);
+		this.POSITIONS.moveTowards(direction);
 		return;
 	}
 	
@@ -148,12 +148,12 @@ public final class Block {
 		// Object must be Block at this point
 		Block other = (Block) obj;
 		
-		return ((this.blockName == other.blockName)
-				|| ((this.blockName != null) && this.blockName.equals(other.blockName)))
-				&& ((this.color == other.color)
-				|| ((this.color != null) && this.color.equals(other.color)))
-				&& ((this.positions == other.positions)
-				|| ((this.positions != null) && this.positions.equals(other.positions)));
+		return ((this.BLOCK_NAME == other.BLOCK_NAME)
+				|| ((this.BLOCK_NAME != null) && this.BLOCK_NAME.equals(other.BLOCK_NAME)))
+				&& ((this.COLOR == other.COLOR)
+				|| ((this.COLOR != null) && this.COLOR.equals(other.COLOR)))
+				&& ((this.POSITIONS == other.POSITIONS)
+				|| ((this.POSITIONS != null) && this.POSITIONS.equals(other.POSITIONS)));
 	}
 	
 	/** TODO
@@ -164,9 +164,9 @@ public final class Block {
 		final int prime = 31;
 		int hash = 7;
 		
-		hash = prime * hash + ((this.blockName == null) ? 0 : this.blockName.hashCode());
-		hash = prime * hash + ((this.color == null) ? 0 : this.color.hashCode());
-		hash = prime * hash + ((this.positions == null) ? 0 : this.positions.hashCode());
+		hash = prime * hash + ((this.BLOCK_NAME == null) ? 0 : this.BLOCK_NAME.hashCode());
+		hash = prime * hash + ((this.COLOR == null) ? 0 : this.COLOR.hashCode());
+		hash = prime * hash + ((this.POSITIONS == null) ? 0 : this.POSITIONS.hashCode());
 		
 		return hash;
 	}
@@ -180,7 +180,7 @@ public final class Block {
 	 */
 	@Override
 	public String toString() {
-		return "Block [blockName=" + this.blockName + ", positions=" + this.positions + "]";
+		return "Block [blockName=" + this.BLOCK_NAME + ", positions=" + this.POSITIONS + "]";
 	}
 
 	// =========================================================================

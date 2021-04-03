@@ -18,8 +18,8 @@ public final class MoveArray implements Iterable<Move> {
 	// ATTRIBUTES
 	// =========================================================================
 
-	/** Move Array */
-	private final List<Move> moves;
+	/** List with {@code Move}s */
+	private final List<Move> MOVES;
 
 	// =========================================================================
 	// CONSTRUCTOR
@@ -29,7 +29,7 @@ public final class MoveArray implements Iterable<Move> {
 	 * Class constructor.
 	 */
 	public MoveArray() {
-		this.moves = new ArrayList<>();
+		this.MOVES = new ArrayList<>();
 	}
 
 	// =========================================================================
@@ -42,7 +42,7 @@ public final class MoveArray implements Iterable<Move> {
 	 * @return	the size of this {@code MoveArray}
 	 */
 	public int getSize() {
-		return this.moves.size();
+		return this.MOVES.size();
 	}
 
 	/**
@@ -52,7 +52,7 @@ public final class MoveArray implements Iterable<Move> {
 	 * @return			the {@code Move} at the specified index
 	 */
 	public Move getMove(int index) {
-		return new Move(this.moves.get(index));
+		return new Move(this.MOVES.get(index));
 	}
 	
 	/**
@@ -61,7 +61,7 @@ public final class MoveArray implements Iterable<Move> {
 	 * @return		the last {@code Move}
 	 */
 	public Move getLastMove() {
-		return this.getMove(this.moves.size() - 1);
+		return this.getMove(this.MOVES.size() - 1);
 	}
 
 	// =========================================================================
@@ -75,7 +75,7 @@ public final class MoveArray implements Iterable<Move> {
 	 * 				this {@code MoveArray}
 	 */
 	public void addMove(Move move) {
-		this.moves.add(new Move(move));
+		this.MOVES.add(new Move(move));
 		return;
 	}
 
@@ -83,7 +83,7 @@ public final class MoveArray implements Iterable<Move> {
 	 * Deletes the last {@code Move} in this {@code MoveArray}.
 	 */
 	public void deleteLastMove() {
-		this.moves.remove(this.getSize() - 1);
+		this.MOVES.remove(this.getSize() - 1);
 		return;
 	}
 
@@ -100,7 +100,7 @@ public final class MoveArray implements Iterable<Move> {
 	 */
 	public void cut(int start, int end) {
 		for (int i = start; i < end; i++) {
-			this.moves.remove(i);
+			this.MOVES.remove(i);
 		}
 
 		return;
@@ -127,7 +127,7 @@ public final class MoveArray implements Iterable<Move> {
 		
 		for (Block blk : oldState) {
 			blockChanges.add(new String[] {blk.getName(),
-					newState.getBlock(blk.getPositions().getMinPosition()).getName()});
+					newState.getBlock(blk.getPositions().getFirst()).getName()});
 		}
 		
 		for (String[] str : blockChanges) {
@@ -138,8 +138,8 @@ public final class MoveArray implements Iterable<Move> {
 		
 		for (int i = changeIndex; i < this.getSize(); i++) {
 			for (String[] str : blockChanges) {
-				if (str[0].equals(this.moves.get(i).getName())) {
-					this.moves.set(i, new Move(str[1], this.moves.get(i).getDirection()));
+				if (str[0].equals(this.MOVES.get(i).getName())) {
+					this.MOVES.set(i, new Move(str[1], this.MOVES.get(i).getDirection()));
 				}
 			}
 		}
@@ -164,8 +164,8 @@ public final class MoveArray implements Iterable<Move> {
 		}
 		// Object must be MoveArray at this point
 		MoveArray other = (MoveArray) obj;
-		return (this.moves == other.moves)
-				|| ((this.moves != null) && this.moves.equals(other.moves));
+		return (this.MOVES == other.MOVES)
+				|| ((this.MOVES != null) && this.MOVES.equals(other.MOVES));
 	}
 
 	/** TODO
@@ -175,7 +175,7 @@ public final class MoveArray implements Iterable<Move> {
 	public int hashCode() {
 		final int prime = 31;
 		int hash = 7;
-		hash = prime * hash + ((this.moves == null) ? 0 : this.moves.hashCode());
+		hash = prime * hash + ((this.MOVES == null) ? 0 : this.MOVES.hashCode());
 		return hash;
 	}
 	
@@ -188,7 +188,7 @@ public final class MoveArray implements Iterable<Move> {
 	 */
 	@Override
 	public String toString() {
-		return "MoveArray [moves=" + this.moves + "]";
+		return "MoveArray [moves=" + this.MOVES + "]";
 	}
 	
 	// -------------------------------------------------------------------------
@@ -200,7 +200,7 @@ public final class MoveArray implements Iterable<Move> {
 	 */
 	@Override
 	public Iterator<Move> iterator() {
-		return this.moves.iterator();
+		return this.MOVES.iterator();
 	}
 
 	// =========================================================================

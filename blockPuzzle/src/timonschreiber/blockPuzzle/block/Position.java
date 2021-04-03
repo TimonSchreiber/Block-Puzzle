@@ -15,8 +15,8 @@ public final class Position implements Comparable<Position> {
 	// =========================================================================
 
 	/** x- and y-coordinates */
-	private final int x;
-	private final int y;
+	private final int X;
+	private final int Y;
 
 	// =========================================================================
 	// CONSTRUCTORS
@@ -29,8 +29,8 @@ public final class Position implements Comparable<Position> {
 	 * @param y		the y-coordinate
 	 */
 	public Position(int x, int y) {
-		this.x = x;
-		this.y = y;
+		this.X = x;
+		this.Y = y;
 	}
 	
 	/**
@@ -39,8 +39,8 @@ public final class Position implements Comparable<Position> {
 	 * @param position	the {@code Position}
 	 */
 	public Position(Position position) {
-		this.x = position.x;
-		this.y = position.y;
+		this.X = position.X;
+		this.Y = position.Y;
 	}
 
 	// =========================================================================
@@ -53,7 +53,7 @@ public final class Position implements Comparable<Position> {
 	 * @return	the x-coordinate
 	 */
 	public int getX() {
-		return this.x;
+		return this.X;
 	}
 
 	/**
@@ -62,7 +62,7 @@ public final class Position implements Comparable<Position> {
 	 * @return	the y-coordinate
 	 */
 	public int getY() {
-		return this.y;
+		return this.Y;
 	}
 
 	// =========================================================================
@@ -75,8 +75,8 @@ public final class Position implements Comparable<Position> {
 	 * @return
 	 */
 	public Position moveTowards(Direction... directions) {
-		int x = this.x;
-		int y = this.y;
+		int x = this.X;
+		int y = this.Y;
 		
 		for (Direction dir : directions) {
 			switch (dir) {
@@ -103,8 +103,8 @@ public final class Position implements Comparable<Position> {
 	 * @return
 	 */
 	public boolean isInInterval(int xMin, int xMax, int yMin, int yMax) {
-		return (this.x >= xMin) && (this.x < xMax)
-				&& (this.y >= yMin) && (this.y < yMax);
+		return (this.X >= xMin) && (this.X < xMax)
+				&& (this.Y >= yMin) && (this.Y < yMax);
 	}
 	
 	// =========================================================================
@@ -127,7 +127,7 @@ public final class Position implements Comparable<Position> {
 		// Object must be Position at this point
 		Position other = (Position) obj;
 		
-		return (this.x == other.x) && (this.y == other.y);
+		return (this.X == other.X) && (this.Y == other.Y);
 	}
 	
 	/** TODO
@@ -138,8 +138,8 @@ public final class Position implements Comparable<Position> {
 		final int prime = 31;
 		int hash = 7;
 		
-		hash = prime * hash + this.x;
-		hash = prime * hash + this.y;
+		hash = prime * hash + this.X;
+		hash = prime * hash + this.Y;
 		
 		return hash;
 	}
@@ -153,7 +153,7 @@ public final class Position implements Comparable<Position> {
 	 */
 	@Override
 	public String toString() {
-		return "Position [x=" + this.x + ", y=" + this.y + "]";
+		return "Position [x=" + this.X + ", y=" + this.Y + "]";
 	}
 	
 	// =========================================================================
@@ -166,8 +166,8 @@ public final class Position implements Comparable<Position> {
 
 	@Override
 	public int compareTo(Position other) {
-		return (this.x != other.x) ? Integer.compare(this.x, other.x)
-				: Integer.compare(this.y, other.y);
+		return (this.X != other.X) ? Integer.compare(this.X, other.X)
+				: Integer.compare(this.Y, other.Y);
 	}
 
 	// =========================================================================

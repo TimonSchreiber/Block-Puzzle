@@ -13,10 +13,10 @@ public final class Move {
 	// =========================================================================
 
 	/** String with blockName */
-	private final String blockName;
+	private final String BLOCK_NAME;
 	
 	/** Direction */
-	private final Direction direction;
+	private final Direction DIRECTION;
 
 	// =========================================================================
 	// CONSTRUCTOR
@@ -28,18 +28,18 @@ public final class Move {
 	 * @param direction		the {@code Direction}
 	 */
 	public Move(String blockName, Direction direction) {
-		this.blockName = new String(blockName);
-		this.direction = direction;
+		this.BLOCK_NAME = new String(blockName);
+		this.DIRECTION = direction;
 	}
 
 	/**
-	 * Class constructor from a {@code Move}.
+	 * Copy constructor.
 	 * 
 	 * @param move	the {@code Move}
 	 */
 	public Move(Move move) {
-		this.blockName = new String(move.blockName);
-		this.direction = move.direction;
+		this.BLOCK_NAME = new String(move.BLOCK_NAME);
+		this.DIRECTION = move.DIRECTION;
 	}
 
 	// =========================================================================
@@ -51,7 +51,7 @@ public final class Move {
 	 * @return
 	 */
 	public String getName() {
-		return new String(this.blockName);
+		return new String(this.BLOCK_NAME);
 	}
 
 	/**
@@ -60,7 +60,7 @@ public final class Move {
 	 * @return	the {@code Direction}
 	 */
 	public Direction getDirection() {
-		return this.direction;
+		return this.DIRECTION;
 	}
 	
 	// =========================================================================
@@ -73,7 +73,7 @@ public final class Move {
 	 * @return
 	 */
 	public Move changeName(String name) {
-		return new Move(name, this.direction);
+		return new Move(name, this.DIRECTION);
 	}
 
 	// =========================================================================
@@ -94,7 +94,7 @@ public final class Move {
 	 * @return	the new {@code Move} with reversed {@code Direction}
 	 */
 	public Move reverse() {
-		return new Move(this.blockName, this.direction.reverse());
+		return new Move(this.BLOCK_NAME, this.DIRECTION.reverse());
 	}
 
 	// =========================================================================
@@ -114,10 +114,10 @@ public final class Move {
 		}
 		// Object must be Move at this point
 		Move other = (Move) obj;
-		return ((this.blockName == other.blockName)
-				|| ((this.blockName != null) && this.blockName.equals(other.blockName)))
-				&& ((this.direction == other.direction)
-				|| ((this.direction != null) && this.direction.equals(other.direction)));
+		return ((this.BLOCK_NAME == other.BLOCK_NAME)
+				|| ((this.BLOCK_NAME != null) && this.BLOCK_NAME.equals(other.BLOCK_NAME)))
+				&& ((this.DIRECTION == other.DIRECTION)
+				|| ((this.DIRECTION != null) && this.DIRECTION.equals(other.DIRECTION)));
 	}
 	
 	/** TODO
@@ -127,8 +127,8 @@ public final class Move {
 	public int hashCode() {
 		final int prime = 31;
 		int hash = 7;
-		hash = prime * hash + ((this.blockName == null) ? 0 : this.blockName.hashCode());
-		hash = prime * hash + ((this.direction == null) ? 0 : this.direction.hashCode());
+		hash = prime * hash + ((this.BLOCK_NAME == null) ? 0 : this.BLOCK_NAME.hashCode());
+		hash = prime * hash + ((this.DIRECTION == null) ? 0 : this.DIRECTION.hashCode());
 		return hash;
 	}
 
@@ -141,7 +141,7 @@ public final class Move {
 	 */
 	@Override
 	public String toString() {
-		return "Move [blockName=" + this.blockName + ", direction=" + this.direction + "]";
+		return "Move [blockName=" + this.BLOCK_NAME + ", direction=" + this.DIRECTION + "]";
 	}
 
 	// =========================================================================

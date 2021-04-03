@@ -20,7 +20,7 @@ public final class BlockArray implements Iterable<Block> {
 	// =========================================================================
 
 	/** {@code Block Array} */
-	private final List<Block> blocks;
+	private final List<Block> BLOCKS;
 
 	// =========================================================================
 	// CONSTRUCTORS
@@ -30,7 +30,7 @@ public final class BlockArray implements Iterable<Block> {
 	 * Class constructor.
 	 */
 	public BlockArray() {
-		this.blocks = new ArrayList<>();
+		this.BLOCKS = new ArrayList<>();
 	}
 	
 	/**
@@ -39,10 +39,10 @@ public final class BlockArray implements Iterable<Block> {
 	 * @param blockArray	the {@code BlockArray}
 	 */
 	public BlockArray(BlockArray blockArray) {
-		this.blocks = new ArrayList<>();
+		this.BLOCKS = new ArrayList<>();
 		
 		for (Block block : blockArray) {
-			this.blocks.add(new Block(block));
+			this.BLOCKS.add(new Block(block));
 		}
 	}
 
@@ -59,7 +59,7 @@ public final class BlockArray implements Iterable<Block> {
 	 * 					x- and y-coordinates; {@code false} otherwise
 	 */
 	public boolean isBlock(Position position) {
-		for (Block blk : this.blocks) {
+		for (Block blk : this.BLOCKS) {
 			if (blk.getPositions().contains(position)) {
 				return true;
 			}
@@ -72,7 +72,7 @@ public final class BlockArray implements Iterable<Block> {
 	 * @return
 	 */
 	public int getSize() {
-		return this.blocks.size();
+		return this.BLOCKS.size();
 	}
 
 	/** TODO
@@ -81,7 +81,7 @@ public final class BlockArray implements Iterable<Block> {
 	 * @return
 	 */
 	public Block getBlock(int index) {
-		return new Block(this.blocks.get(index));
+		return new Block(this.BLOCKS.get(index));
 	}
 
 
@@ -91,7 +91,7 @@ public final class BlockArray implements Iterable<Block> {
 	 * @return
 	 */
 	public Block getBlock(String blockName) {
-		for (Block blk : this.blocks) {
+		for (Block blk : this.BLOCKS) {
 			if (blk.getName().equals(blockName)) {
 				return new Block(blk);
 			}
@@ -105,7 +105,7 @@ public final class BlockArray implements Iterable<Block> {
 	 * @return
 	 */
 	public Block getBlock(Position position) {
-		for (Block blk : this.blocks) {
+		for (Block blk : this.BLOCKS) {
 			if (blk.getPositions().contains(position)) {
 				return new Block(blk);
 			}
@@ -122,7 +122,7 @@ public final class BlockArray implements Iterable<Block> {
 	 * @param block
 	 */
 	public void addBlock(Block block) {
-		this.blocks.add(new Block(block));
+		this.BLOCKS.add(new Block(block));
 		return;
 	}
 	
@@ -135,7 +135,7 @@ public final class BlockArray implements Iterable<Block> {
 	 * @param move
 	 */
 	public void move(Move move) {
-		for (Block blk : this.blocks) {
+		for (Block blk : this.BLOCKS) {
 			if (blk.getName().equals(move.getName())) {
 				blk.moveTowards(move.getDirection());
 			}
@@ -155,7 +155,7 @@ public final class BlockArray implements Iterable<Block> {
 	public boolean isSimilar(BlockArray blocks) {
 		int counter = 0;
 		
-		for (Block blk1 : this.blocks) {
+		for (Block blk1 : this.BLOCKS) {
 			for (Block blk2 : blocks) {
 				if (blk1.getPositions().equals(blk2.getPositions())) {
 					counter++;
@@ -183,8 +183,8 @@ public final class BlockArray implements Iterable<Block> {
 		}
 		// Object must be BlockArray at this point
 		BlockArray other = (BlockArray) obj;
-		return (this.blocks == other.blocks)
-				|| ((this.blocks != null) && this.blocks.equals(other.blocks));
+		return (this.BLOCKS == other.BLOCKS)
+				|| ((this.BLOCKS != null) && this.BLOCKS.equals(other.BLOCKS));
 	}
 	
 	/** TODO
@@ -194,7 +194,7 @@ public final class BlockArray implements Iterable<Block> {
 	public int hashCode() {
 		final int prime = 31;
 		int hash = 7;
-		hash = prime * hash + ((this.blocks == null) ? 0 : this.blocks.hashCode());
+		hash = prime * hash + ((this.BLOCKS == null) ? 0 : this.BLOCKS.hashCode());
 		return hash;
 	}
 	
@@ -207,7 +207,7 @@ public final class BlockArray implements Iterable<Block> {
 	 */
 	@Override
 	public String toString() {
-		return "BlockArray [blocks=" + this.blocks + "]";
+		return "BlockArray [blocks=" + this.BLOCKS + "]";
 	}
 
 	// =========================================================================
@@ -223,7 +223,7 @@ public final class BlockArray implements Iterable<Block> {
 	 */
 	@Override
 	public Iterator<Block> iterator() {
-		return this.blocks.iterator();
+		return this.BLOCKS.iterator();
 	}
 
 	// =========================================================================
