@@ -14,7 +14,7 @@ import timonschreiber.blockPuzzle.block.PositionList;
  * @author		Timon Schreiber
  * @version		1.1 2021 February 13
  */
-public class GameField {
+public final class GameField {
 
 	// =========================================================================
 	// ATTRIBUTES

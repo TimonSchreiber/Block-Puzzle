@@ -82,14 +82,7 @@ public final class Move {
 
 	/**
 	 * Gets a new {@code Move} with the reversed {@code Direction} of
-	 * this {@code Move}:
-	 * 
-	 * <ul>
-	 * <li>UP		-> DOWN
-	 * <li>LEFT		-> RIGHT
-	 * <li>RIGHT	-> LEFT
-	 * <li>DOWN		-> UP
-	 * </ul>
+	 * this {@code Move}.
 	 * 
 	 * @return	the new {@code Move} with reversed {@code Direction}
 	 */
@@ -109,11 +102,14 @@ public final class Move {
 		if (this == obj) {
 			return true;
 		}
+		
 		if ((obj == null) || (this.getClass() != obj.getClass())) {
 			return false;
 		}
+		
 		// Object must be Move at this point
 		Move other = (Move) obj;
+		
 		return ((this.BLOCK_NAME == other.BLOCK_NAME)
 				|| ((this.BLOCK_NAME != null) && this.BLOCK_NAME.equals(other.BLOCK_NAME)))
 				&& ((this.DIRECTION == other.DIRECTION)
@@ -127,8 +123,10 @@ public final class Move {
 	public int hashCode() {
 		final int prime = 31;
 		int hash = 7;
+		
 		hash = prime * hash + ((this.BLOCK_NAME == null) ? 0 : this.BLOCK_NAME.hashCode());
 		hash = prime * hash + ((this.DIRECTION == null) ? 0 : this.DIRECTION.hashCode());
+		
 		return hash;
 	}
 

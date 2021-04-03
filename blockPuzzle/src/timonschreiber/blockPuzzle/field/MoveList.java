@@ -159,11 +159,14 @@ public final class MoveList implements Iterable<Move> {
 		if (this == obj) {
 			return true;
 		}
+		
 		if ((obj == null) || (this.getClass() != obj.getClass())) {
 			return false;
 		}
+		
 		// Object must be MoveList at this point
 		MoveList other = (MoveList) obj;
+		
 		return (this.MOVES == other.MOVES)
 				|| ((this.MOVES != null) && this.MOVES.equals(other.MOVES));
 	}
@@ -175,7 +178,9 @@ public final class MoveList implements Iterable<Move> {
 	public int hashCode() {
 		final int prime = 31;
 		int hash = 7;
+		
 		hash = prime * hash + ((this.MOVES == null) ? 0 : this.MOVES.hashCode());
+		
 		return hash;
 	}
 	

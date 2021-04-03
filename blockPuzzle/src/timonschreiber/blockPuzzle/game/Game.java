@@ -16,7 +16,7 @@ import timonschreiber.blockPuzzle.field.GameField;
  * @author		Timon Schreiber
  * @version		1.1 2021 February 25
  */
-public class Game {
+public final class Game {
 
 	// =========================================================================
 	// ATTRIBUTES
@@ -28,7 +28,7 @@ public class Game {
 	// -------------------------------------------------------------------------
 
 	/** {@code GameField} */
-	protected GameField field;
+	protected final GameField FIELD;
 
 	// =========================================================================
 	// CONSTRUCTOR
@@ -40,13 +40,13 @@ public class Game {
 	 * @param gameID	the gameID
 	 */
 	public Game(int gameID) {
-		this.field = new GameField();
+		this.FIELD = new GameField();
 		
 		for (BlockInfo blkInf : Game.START_POSITIONS.get(gameID)) {
-			this.field.placeBlock(new Block(blkInf));
+			this.FIELD.placeBlock(new Block(blkInf));
 		}
 
-		this.field.draw();
+		this.FIELD.draw();
 	}
 
 	// =========================================================================

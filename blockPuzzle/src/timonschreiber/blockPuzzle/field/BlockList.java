@@ -179,11 +179,14 @@ public final class BlockList implements Iterable<Block> {
 		if (this == obj) {
 			return true;
 		}
+		
 		if ((obj == null) || (this.getClass() != obj.getClass())) {
 			return false;
 		}
+		
 		// Object must be BlockList at this point
 		BlockList other = (BlockList) obj;
+		
 		return (this.BLOCKS == other.BLOCKS)
 				|| ((this.BLOCKS != null) && this.BLOCKS.equals(other.BLOCKS));
 	}
@@ -195,7 +198,9 @@ public final class BlockList implements Iterable<Block> {
 	public int hashCode() {
 		final int prime = 31;
 		int hash = 7;
+		
 		hash = prime * hash + ((this.BLOCKS == null) ? 0 : this.BLOCKS.hashCode());
+		
 		return hash;
 	}
 	
