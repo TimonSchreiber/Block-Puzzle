@@ -28,7 +28,7 @@ public final class Game {
 	// -------------------------------------------------------------------------
 
 	/** {@code GameField} */
-	protected final GameField FIELD;
+	protected GameField field;
 
 	// =========================================================================
 	// CONSTRUCTOR
@@ -40,13 +40,13 @@ public final class Game {
 	 * @param gameID	the gameID
 	 */
 	public Game(int gameID) {
-		this.FIELD = new GameField();
+		this.field = new GameField();
 		
 		for (BlockInfo blkInf : Game.START_POSITIONS.get(gameID)) {
-			this.FIELD.placeBlock(new Block(blkInf));
+			this.field.placeBlock(new Block(blkInf));
 		}
 
-		this.FIELD.draw();
+		this.field.draw();
 	}
 
 	// =========================================================================

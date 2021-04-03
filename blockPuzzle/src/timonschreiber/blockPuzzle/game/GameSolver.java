@@ -35,19 +35,19 @@ public class GameSolver {
 	private String str;
 
 	/** List of {@code BlockList}s for the solution */
-	private final List<BlockList> solution;
+	private List<BlockList> solution;
 	
 	/** List of {@code ShortCut}s to shorten the solution */
-	private final List<ShortCut> shortCuts;
+	private List<ShortCut> shortCuts;
 
 	/** {@code HashSet} of {@code GameState} to save every unique state */
-	private final Set<BlockList> states;
+	private Set<BlockList> states;
 
 	/** {@code MoveList} to save every {@code Move} */
-	private final MoveList moves;
+	private MoveList moves;
 
 	/** {@code Game} */
-	private final Game game;
+	private Game game;
 
 	// =========================================================================
 	// CONSTRUCTOR
@@ -70,12 +70,12 @@ public class GameSolver {
 		
 		this.game = new Game(gameID);
 
-		this.states.add(this.game.FIELD.getBlocks());
+		this.states.add(this.game.field.getBlocks());
 		
 		// Block_Names
 		this.BLOCK_NAMES = new ArrayList<>();
 		
-		for (Block blk : this.game.FIELD.getBlocks()) {
+		for (Block blk : this.game.field.getBlocks()) {
 			this.BLOCK_NAMES.add(blk.getName());
 		}
 		
@@ -96,7 +96,7 @@ public class GameSolver {
 	 */
 	private boolean isNewMove() {
 		Move nextMove;
-		GameField tmpFld = new GameField(this.game.FIELD.getBlocks());
+		GameField tmpFld = new GameField(this.game.field.getBlocks());
 		
 
 		for (int i = 0; i < this.BLOCK_NAMES.size(); i++) {
@@ -113,12 +113,12 @@ public class GameSolver {
 						
 					} else {
 						
-						this.game.FIELD.isValidMove(nextMove);
+						this.game.field.isValidMove(nextMove);
 						
-						this.states.add(this.game.FIELD.getBlocks());
+						this.states.add(this.game.field.getBlocks());
 						this.moves.addMove(nextMove);
 						
-						this.game.FIELD.draw();
+						this.game.field.draw(500);	// XXX
 						return true;
 						
 					}
@@ -142,7 +142,7 @@ public class GameSolver {
 
 		try {
 			// Check for game#field#isWon to become true
-			while (!this.game.FIELD.isWon()) {
+			while (!this.game.field.isWon()) {
 				
 				// If GameSolver#isNewMove is false, the last Move will be reversed
 				while (!this.isNewMove()) {
@@ -150,7 +150,7 @@ public class GameSolver {
 					if (this.moves.getSize() == 0) {
 						System.out.println("Can't find a move.");
 						return;
-					} else if (this.game.FIELD.isValidMove(
+					} else if (this.game.field.isValidMove(
 							this.moves.getLastMove().reverse())) {
 						this.moves.deleteLastMove();
 					} else {
@@ -186,11 +186,11 @@ public class GameSolver {
 		
 		this.reverseGame();
 		
-		this.solution.add(this.game.FIELD.getBlocks());
+		this.solution.add(this.game.field.getBlocks());
 
 		for (Move mv : this.moves) {
-			if (this.game.FIELD.isValidMove(mv)) {
-				this.solution.add(this.game.FIELD.getBlocks());
+			if (this.game.field.isValidMove(mv)) {
+				this.solution.add(this.game.field.getBlocks());
 			} else {
 				System.out.println("Can't create the solution form the moves list.");
 				return;
@@ -221,7 +221,7 @@ public class GameSolver {
 		System.out.println("\n\t#reverseGame from #" + from);	// XXX
 		
 		for (int i = (from - 1); i >= 0; i--) {
-			this.game.FIELD.isValidMove(this.moves.getMove(i).reverse());
+			this.game.field.isValidMove(this.moves.getMove(i).reverse());
 		}
 		return;
 	}
@@ -243,8 +243,8 @@ public class GameSolver {
 		this.reverseGame();
 
 		for (Move mv : this.moves) {
-			this.game.FIELD.isValidMove(mv);
-			this.game.FIELD.draw(delay);
+			this.game.field.isValidMove(mv);
+			this.game.field.draw(delay);
 		}
 		
 		// different method?
@@ -289,11 +289,11 @@ public class GameSolver {
 
 		for (Move mv : this.moves) {
 			
-			if (this.game.FIELD.getBlocks().equals(blocks)) {
-				this.game.FIELD.print();	// XXX
+			if (this.game.field.getBlocks().equals(blocks)) {
+				this.game.field.print();	// XXX
 			} else {
 				System.out.println(mv);	// XXX
-				this.game.FIELD.isValidMove(mv);
+				this.game.field.isValidMove(mv);
 				continue;	// skips the rest until Game#field is equal to blocks
 			}
 			
@@ -309,7 +309,7 @@ public class GameSolver {
 						System.out.println(" -> skipped");	// XXX
 						continue; }		// skips known moves
 					
-					tmpFld = new GameField(this.game.FIELD.getBlocks());
+					tmpFld = new GameField(this.game.field.getBlocks());
 
 					if (tmpFld.isValidMove(tmpMv)) {
 						if (this.states.contains(tmpFld.getBlocks())) {
