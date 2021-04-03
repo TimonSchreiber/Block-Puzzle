@@ -115,14 +115,14 @@ public final class MoveList implements Iterable<Move> {
 	 * 
 	 * Changes every {@code Move} after changeIndex this
 	 * {@code MoveList} to the a new {@code Move} defined by the
-	 * {@code BlockArray} newState.
+	 * {@code BlockList} newState.
 	 * 
-	 * @param oldState			the old {@code BlockArray}
-	 * @param newState			the new {@code BlockArray}
+	 * @param oldState			the old {@code BlockList}
+	 * @param newState			the new {@code BlockList}
 	 * @param changeIndex		the index at which the changes in this
 	 * 							{@code MoveList} occurs
 	 */
-	public void change(BlockArray oldState, BlockArray newState, int changeIndex) {
+	public void change(BlockList oldState, BlockList newState, int changeIndex) {
 		List<String[]> blockChanges = new ArrayList<>();
 		
 		for (Block blk : oldState) {

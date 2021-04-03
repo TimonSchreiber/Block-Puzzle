@@ -1,6 +1,6 @@
 package timonschreiber.blockPuzzle.game;
 
-import timonschreiber.blockPuzzle.field.BlockArray;
+import timonschreiber.blockPuzzle.field.BlockList;
 import timonschreiber.blockPuzzle.field.Move;
 
 /**
@@ -9,4 +9,4 @@ import timonschreiber.blockPuzzle.field.Move;
  * @author		Timon Schreiber
  * @version		1.0 2021 April 02
  */
-public record ShortCut(BlockArray start, BlockArray end, Move altMove) {}
+public record ShortCut(BlockList start, BlockList end, Move altMove) {}

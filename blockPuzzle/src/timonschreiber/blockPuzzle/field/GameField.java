@@ -8,7 +8,7 @@ import timonschreiber.blockPuzzle.block.BlockInfo;
 import timonschreiber.blockPuzzle.block.Position;
 import timonschreiber.blockPuzzle.block.PositionList;
 
-/** TODO code-tags
+/** TODO code-tags | not calling isWon() after every move
  * Game Field Class
  * 
  * @author		Timon Schreiber
@@ -38,8 +38,8 @@ public class GameField {
 	/** Changes to {@code true} if the victory condition is met */
 	private boolean isWon;
 	
-	/** {@code BlockArray} to keep track of every {@code Block} */
-	private BlockArray blocks;
+	/** {@code BlockList} to keep track of every {@code Block} */
+	private BlockList blocks;
 
 	/** Canvas to draw the {@code GameField} on */
 	private Zeichenblatt canvas;
@@ -52,18 +52,18 @@ public class GameField {
 	 * Class constructor.
 	 */
 	public GameField() {
-		this.blocks = new BlockArray();
+		this.blocks = new BlockList();
 	}
 
 	/**
-	 * Class constructor from a {@code BlockArray}.
+	 * Class constructor from a {@code BlockList}.
 	 * 
-	 * @param blockArray	the {@code BlockArray}
+	 * @param blockList	the {@code BlockList}
 	 */
-	public GameField(BlockArray blockArray) {
-		this.blocks = new BlockArray();
+	public GameField(BlockList blockList) {
+		this.blocks = new BlockList();
 		
-		for (Block blk : blockArray) {
+		for (Block blk : blockList) {
 			this.placeBlock(new Block(blk));
 		}
 	}
@@ -101,12 +101,12 @@ public class GameField {
 	}
 
 	/**
-	 * Gets the {@code BlockArray}.
+	 * Gets the {@code BlockList}.
 	 * 
-	 * @return	the {@code BlockArray}
+	 * @return	the {@code BlockList}
 	 */
-	public BlockArray getBlocks() {
-		return new BlockArray(this.blocks);
+	public BlockList getBlocks() {
+		return new BlockList(this.blocks);
 	}
 
 	// =========================================================================

@@ -13,7 +13,7 @@ import timonschreiber.blockPuzzle.block.Position;
  * @author		Timon Schreiber
  * @version		1.1 2021 February 28
  */
-public final class BlockArray implements Iterable<Block> {
+public final class BlockList implements Iterable<Block> {
 
 	// =========================================================================
 	// ATTRIBUTE
@@ -29,19 +29,19 @@ public final class BlockArray implements Iterable<Block> {
 	/**
 	 * Class constructor.
 	 */
-	public BlockArray() {
+	public BlockList() {
 		this.BLOCKS = new ArrayList<>();
 	}
 	
 	/**
 	 * Copy constructor.
 	 * 
-	 * @param blockArray	the {@code BlockArray}
+	 * @param blockList	the {@code BlockList}
 	 */
-	public BlockArray(BlockArray blockArray) {
+	public BlockList(BlockList blockList) {
 		this.BLOCKS = new ArrayList<>();
 		
-		for (Block block : blockArray) {
+		for (Block block : blockList) {
 			this.BLOCKS.add(new Block(block));
 		}
 	}
@@ -51,7 +51,7 @@ public final class BlockArray implements Iterable<Block> {
 	// =========================================================================
 
 	/** TODO
-	 * Checks if there is a Block in this {@code BlockArray} with the same
+	 * Checks if there is a Block in this {@code BlockList} with the same
 	 * x- and y-coordinates as one of its {@code Block}s.
 	 * 
 	 * @param position	the {@code Position}
@@ -138,6 +138,7 @@ public final class BlockArray implements Iterable<Block> {
 		for (Block blk : this.BLOCKS) {
 			if (blk.getName().equals(move.getName())) {
 				blk.moveTowards(move.getDirection());
+				return;
 			}
 		}
 		return;
@@ -152,7 +153,7 @@ public final class BlockArray implements Iterable<Block> {
 	 * @param blocks
 	 * @return
 	 */
-	public boolean isSimilar(BlockArray blocks) {
+	public boolean isSimilar(BlockList blocks) {
 		int counter = 0;
 		
 		for (Block blk1 : this.BLOCKS) {
@@ -181,8 +182,8 @@ public final class BlockArray implements Iterable<Block> {
 		if ((obj == null) || (this.getClass() != obj.getClass())) {
 			return false;
 		}
-		// Object must be BlockArray at this point
-		BlockArray other = (BlockArray) obj;
+		// Object must be BlockList at this point
+		BlockList other = (BlockList) obj;
 		return (this.BLOCKS == other.BLOCKS)
 				|| ((this.BLOCKS != null) && this.BLOCKS.equals(other.BLOCKS));
 	}
@@ -207,7 +208,7 @@ public final class BlockArray implements Iterable<Block> {
 	 */
 	@Override
 	public String toString() {
-		return "BlockArray [blocks=" + this.BLOCKS + "]";
+		return "BlockList [blocks=" + this.BLOCKS + "]";
 	}
 
 	// =========================================================================

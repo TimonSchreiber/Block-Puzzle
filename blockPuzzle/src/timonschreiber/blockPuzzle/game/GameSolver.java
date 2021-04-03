@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import timonschreiber.blockPuzzle.block.Block;
-import timonschreiber.blockPuzzle.field.BlockArray;
+import timonschreiber.blockPuzzle.field.BlockList;
 import timonschreiber.blockPuzzle.field.Direction;
 import timonschreiber.blockPuzzle.field.GameField;
 import timonschreiber.blockPuzzle.field.Move;
@@ -34,14 +34,14 @@ public class GameSolver {
 	/** alternative for-loop variable to iterate over {@code BLOCK_NAMES} */
 	private String str;
 
-	/** List of {@code BlockArray}s for the solution */
-	private List<BlockArray> solution;
+	/** List of {@code BlockList}s for the solution */
+	private List<BlockList> solution;
 	
 	/** List of {@code ShortCut}s to shorten the solution */
 	private List<ShortCut> shortCuts;
 
 	/** {@code HashSet} of {@code GameState} to save every unique state */
-	private Set<BlockArray> states;
+	private Set<BlockList> states;
 
 	/** {@code MoveList} to save every {@code Move} */
 	private MoveList moves;
@@ -92,7 +92,7 @@ public class GameSolver {
 	 * and {@code Direction}.
 	 * 
 	 * @return	{@code true} if a new {@code Move}, leading to a new
-	 * 			{@code BlockArray} is found; {@code false} otherwise
+	 * 			{@code BlockList} is found; {@code false} otherwise
 	 */
 	private boolean isNewMove() {
 		Move nextMove;
@@ -238,7 +238,7 @@ public class GameSolver {
 	public void showMoves(int delay) {
 		System.out.println("\n\t#showMoves");	// XXX
 		
-		BlockArray tmpBlks = null;
+		BlockList tmpBlks = null;
 
 		this.reverseGame();
 
@@ -250,10 +250,10 @@ public class GameSolver {
 		// different method?
 		this.createSolution();
 		
-		for (BlockArray blks : this.solution) {
+		for (BlockList blks : this.solution) {
 			if (this.solution.indexOf(blks)
 					<= this.solution.indexOf(tmpBlks)) {
-				continue;	// skips to the BlockArray AFTER tmpBlks in solution
+				continue;	// skips to the BlockList AFTER tmpBlks in solution
 			}
 			this.reverseGame(this.solution.indexOf(blks));
 			tmpBlks = this.findShortCut(blks);
@@ -279,7 +279,7 @@ public class GameSolver {
 	/** TODO
 	 * Get a shorter solution by finding a short cut
 	 */
-	private BlockArray findShortCut(BlockArray blocks) {
+	private BlockList findShortCut(BlockList blocks) {
 		System.out.println("\n\t#findShortCut from state #"
 						+ this.solution.indexOf(blocks));	// XXX
 		
