@@ -8,7 +8,7 @@ import timonschreiber.blockPuzzle.field.Direction;
  * @author		Timon Schreiber
  * @version		1.1 2021 February 21
  */
-public final class Position {
+public final class Position implements Comparable<Position> {
 
 	// =========================================================================
 	// ATTRIBUTES
@@ -154,6 +154,20 @@ public final class Position {
 	@Override
 	public String toString() {
 		return "Position [x=" + this.x + ", y=" + this.y + "]";
+	}
+	
+	// =========================================================================
+	// INTERFACE - METHOD
+	// =========================================================================
+	
+	// -------------------------------------------------------------------------
+	// COMPARABLE
+	// -------------------------------------------------------------------------
+
+	@Override
+	public int compareTo(Position other) {
+		return (this.x != other.x) ? Integer.compare(this.x, other.x)
+				: Integer.compare(this.y, other.y);
 	}
 
 	// =========================================================================

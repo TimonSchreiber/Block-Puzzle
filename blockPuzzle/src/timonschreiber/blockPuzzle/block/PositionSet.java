@@ -1,13 +1,14 @@
 package timonschreiber.blockPuzzle.block;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Set;
+import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import timonschreiber.blockPuzzle.field.Direction;
-import timonschreiber.blockPuzzle.field.GameField;
 
-/**
+/** TODO firstPosition needed? Find a better way!
  * Position Array Class
  * 
  * @author		Timon Schreiber
@@ -18,16 +19,41 @@ public final class PositionSet implements Iterable<Position> {
 	// =========================================================================
 	// ATTRIBUTES
 	// =========================================================================
-
-	/** first {@code Position} */
-	private final Position firstPosition;
 	
-	/** Set of {@code Position}s */
-	private final Set<Position> positions;
+	/** SortedSet of {@code Position}s */
+	private final List<Position> positions;
 	
 	// =========================================================================
 	// CONSTRUCTORS
 	// =========================================================================
+	
+	/** TODO
+	 * Class constructor form a {@code Position} with additional information
+	 * in the form of size and direction.
+	 * 
+	 * @param position		the {@code Position}
+	 * @param size			the {@code size}
+	 * @param direction		the {@code Direction}
+	 */
+	public PositionSet(Position position, int size, Direction direction) {
+		this.positions = new ArrayList<>();
+		
+		switch (size) {
+		case 4:
+			this.positions.add(position.moveTowards(direction));
+			/* falls through */
+		case 3:
+			this.positions.add(position.moveTowards(direction.reverse()));
+			/* falls through */
+		case 2:
+			this.positions.add(position.moveTowards(direction, direction.reverse()));
+			break;
+		default:
+			break;
+		}
+		
+		this.positions.sort(null);
+	}
 	
 	/**
 	 * Class constructor from {@code Position} values.
@@ -35,12 +61,13 @@ public final class PositionSet implements Iterable<Position> {
 	 * @param position	the {@code Position} values
 	 */
 	public PositionSet(Position... positions) {
-		this.firstPosition = new Position(positions[0]);
-		this.positions = new HashSet<>();
+		this.positions = new ArrayList<>();
 		
 		for (Position pos : positions) {
 			this.positions.add(new Position(pos));
 		}
+		
+		this.positions.sort(null);
 	}
 	
 	/**
@@ -49,13 +76,13 @@ public final class PositionSet implements Iterable<Position> {
 	 * @param positions
 	 */
 	public PositionSet(PositionSet positions) {
-		this.firstPosition = positions.getMinPosition();
-		this.positions = new HashSet<>();
+		this.positions = new ArrayList<>();
 		
 		for (Position pos : positions) {
 			this.positions.add(new Position(pos));
 		} 
-		
+
+		this.positions.sort(null);
 	}
 	
 	// =========================================================================
@@ -84,40 +111,20 @@ public final class PositionSet implements Iterable<Position> {
 	 * 
 	 * @return	the lowest {@code Position}
 	 */
-	public Position getMinPosition() {
-		return ;
-	}
-
-	// =========================================================================
-	// ADD - METHOD
-	// =========================================================================
-	
-	/** TODO
-	 * 
-	 * @param directions
-	 */
-	public void addPosition(Direction... directions) {
-		this.positions.add(this.firstPosition.moveTowards(directions));
-		
-		return;
+	public Position getFirst() {
+		return this.positions.get(0);
 	}
 	
 	// =========================================================================
 	// MOVE-TOWARDS - METHOD
 	// =========================================================================
 	
-	/** TODO is this the best way and (or even) efficient?
+	/** TODO is this the best way and (/or even) efficient? (new ArrayList)
 	 * 
 	 * @param directions
 	 */
 	public void moveTowards(Direction... directions) {
-		Set<Position> tmpPos = new HashSet<>();
-		
-		this.positions.forEach(pos -> tmpPos.add(pos.moveTowards(directions)));
-		
-		this.positions.clear();
-		
-		tmpPos.forEach(pos -> this.positions.add(pos));
+		this.positions.replaceAll(p -> p.moveTowards(directions));
 		
 		return;
 	}

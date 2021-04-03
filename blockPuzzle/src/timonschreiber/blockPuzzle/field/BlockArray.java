@@ -34,7 +34,7 @@ public final class BlockArray implements Iterable<Block> {
 	}
 	
 	/**
-	 * Class constructor from another {@code BlockArray}.
+	 * Copy constructor.
 	 * 
 	 * @param blockArray	the {@code BlockArray}
 	 */
@@ -153,13 +153,17 @@ public final class BlockArray implements Iterable<Block> {
 	 * @return
 	 */
 	public boolean isSimilar(BlockArray blocks) {
-		for (Block blk : this.blocks) {
-			if (blk.isEqualBlock(blocks)) {
-			} else {
-				return false;
+		int counter = 0;
+		
+		for (Block blk1 : this.blocks) {
+			for (Block blk2 : blocks) {
+				if (blk1.getPositions().equals(blk2.getPositions())) {
+					counter++;
+				}
 			}
 		}
-		return true;
+		
+		return counter == this.getSize();
 	}
 	
 	// =========================================================================

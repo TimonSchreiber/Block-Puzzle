@@ -1,6 +1,10 @@
 package timonschreiber.blockPuzzle.main;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import timonschreiber.blockPuzzle.block.Position;
 import timonschreiber.blockPuzzle.game.GameSolver;
@@ -15,7 +19,38 @@ public class GameMain {
 
 	public static void main(String[] args) {
 		
-		Set<Position> s1 = new HashSet<>();
+		SortedSet<Position> s1 = new TreeSet<>();
+		SortedSet<Position> s2 = new TreeSet<>();
+		List<Position> l1 = new ArrayList<>();
+		
+		
+		s1.add(new Position(0, 0));
+		s1.add(new Position(0, 1));
+		s1.add(new Position(1, 0));
+		s1.add(new Position(1, 1));
+		
+		System.out.println("\ns1: " + s1.hashCode() + "\n" + s1);
+		for (Position str : s1) {
+			System.out.println(str + " hashCode: " + str.hashCode());
+		}
+
+		s2.add(new Position(1, 1));
+		s2.add(new Position(0, 0));
+		s2.add(new Position(0, 1));
+		s2.add(new Position(1, 0));
+		System.out.println("\ns2[0]: " + s2.first());
+		
+		System.out.println("\ns2: " + s2.hashCode() + "\n" + s2);
+		for (Position str : s2) {
+			System.out.println(str + " hashCode: " + str.hashCode());
+		}
+		
+		l1.addAll(s1);
+		System.out.println("\nl1: " + l1.hashCode() + "\n" + l1);
+		for (Position str : l1) {
+			System.out.println(str + " hashCode: " + str.hashCode());
+		}
+
 		
 //		// System variables
 //		// New Scanner

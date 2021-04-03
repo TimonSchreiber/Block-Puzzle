@@ -2,7 +2,6 @@ package timonschreiber.blockPuzzle.block;
 
 import java.awt.Color;
 
-import timonschreiber.blockPuzzle.field.BlockArray;
 import timonschreiber.blockPuzzle.field.Direction;
 
 /** TODO
@@ -43,16 +42,16 @@ public final class Block {
 	 * @param direction		the {@code Direction}
 	 */
 	public Block(Position position, int size, Direction direction) {
-		this.blockName = BlockType.getPrefix(size)
-				+ ++Block.blockCounter[size - 1];
+		this.blockName = new String(BlockType.getPrefix(size)
+				+ ++Block.blockCounter[size - 1]);
 
 		this.color = this.createColor(size);
 		
-		this.positions = this.createPositionArray(position, direction, size);
+		this.positions = new PositionSet(position, size, direction);
 	}
 
 	/** TODO is needed?
-	 * Class constructor from a {@code Block}.
+	 * Copy constructor.
 	 * 
 	 * @param block		the {@code Block}
 	 */
@@ -94,36 +93,14 @@ public final class Block {
 	// =========================================================================
 	// CREATE - METHOD
 	// =========================================================================
-
-	/** TODO
-	 * Defines the second, third and fourth {@code Position} for this
-	 * {@code Block} with the given {@code Direction}.
-	 * 
-	 * @param direction		the {@code Direction}
-	 * @param size			the size
-	 */
-	private PositionSet createPositionArray(Position position,
-											Direction direction, int size) {
-		Direction nextDir = direction.next();
-		PositionSet tmpPA = new PositionSet(position);
-		
-		if (size >= 2) {
-			tmpPA.addPosition(direction);
-		}
-		if (size >= 3) {
-			tmpPA.addPosition(nextDir);
-		}
-		if (size >= 4) {
-			tmpPA.addPosition(direction, nextDir);
-		}
-
-		return tmpPA;
-	}
 	
-	/** TODO
+	/**
+	 * Creates the {@code Color} for the {@code Block} by repeatedly using
+	 * {@link Color#darker()} for each {@code Block} of the same
+	 * {@code BlockType} that was already created.
 	 * 
-	 * @param size
-	 * @return
+	 * @param size	the size
+	 * @return		a darker {@code Color}
 	 */
 	private Color createColor(int size) {
 		Color tmpClr = BlockType.getColor(size);
@@ -133,38 +110,6 @@ public final class Block {
 		}
 		
 		return tmpClr;
-	}
-
-	// =========================================================================
-	// IS-EQUAL - METHODS
-	// =========================================================================
-
-	/** TODO is needed?
-	 * FIXME
-	 * Checks if this {@code Block} has the same {@code PositionSet}
-	 * as the second {@code Block}.
-	 * 
-	 * @param blocks	the {@code BlockArray}
-	 * @return			{@code true} if this {@code Block} has the
-	 * 					same {@code Position}s as one of the other
-	 * 					{@code Block}s; {@code false} otherwise
-	 */
-	public boolean isEqualBlock(BlockArray blocks) {
-		int counter;
-		for (Block blk : blocks) {
-			if (this.positions.getSize() == blk.getPositions().getSize()) {
-				counter = 0;
-				for (Position pos : this.positions) {
-					if (blk.getPositions().contains(pos)) {
-						counter++;
-					}
-				}
-				if (counter == this.positions.getSize()) {
-					return true;
-				}
-			}
-		}
-		return false;
 	}
 
 	// =========================================================================
@@ -195,11 +140,14 @@ public final class Block {
 		if (this == obj) {
 			return true;
 		}
+		
 		if ((obj == null) || (this.getClass() != obj.getClass())) {
 			return false;
 		}
+		
 		// Object must be Block at this point
 		Block other = (Block) obj;
+		
 		return ((this.blockName == other.blockName)
 				|| ((this.blockName != null) && this.blockName.equals(other.blockName)))
 				&& ((this.color == other.color)
@@ -215,9 +163,11 @@ public final class Block {
 	public int hashCode() {
 		final int prime = 31;
 		int hash = 7;
+		
 		hash = prime * hash + ((this.blockName == null) ? 0 : this.blockName.hashCode());
 		hash = prime * hash + ((this.color == null) ? 0 : this.color.hashCode());
 		hash = prime * hash + ((this.positions == null) ? 0 : this.positions.hashCode());
+		
 		return hash;
 	}
 
