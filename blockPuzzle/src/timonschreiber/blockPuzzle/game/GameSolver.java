@@ -35,19 +35,19 @@ public class GameSolver {
 	private String str;
 
 	/** List of {@code BlockList}s for the solution */
-	private List<BlockList> solution;
+	private final List<BlockList> solution;
 	
 	/** List of {@code ShortCut}s to shorten the solution */
-	private List<ShortCut> shortCuts;
+	private final List<ShortCut> shortCuts;
 
 	/** {@code HashSet} of {@code GameState} to save every unique state */
-	private Set<BlockList> states;
+	private final Set<BlockList> states;
 
 	/** {@code MoveList} to save every {@code Move} */
-	private MoveList moves;
+	private final MoveList moves;
 
 	/** {@code Game} */
-	private Game game;
+	private final Game game;
 
 	// =========================================================================
 	// CONSTRUCTOR
@@ -352,7 +352,7 @@ public class GameSolver {
 	// =========================================================================
 	
 	/**
-	 * Returns the next {@code BlockName} in the {@code List}
+	 * Returns the next {@code BLOCK_NAME} in the {@code List}
 	 * {@code BLOCK_NAMES}.
 	 * 
 	 * @param str	the current {@code String}
