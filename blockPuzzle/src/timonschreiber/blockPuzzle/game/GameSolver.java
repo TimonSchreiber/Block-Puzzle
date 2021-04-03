@@ -12,7 +12,7 @@ import timonschreiber.blockPuzzle.field.BlockArray;
 import timonschreiber.blockPuzzle.field.Direction;
 import timonschreiber.blockPuzzle.field.GameField;
 import timonschreiber.blockPuzzle.field.Move;
-import timonschreiber.blockPuzzle.field.MoveArray;
+import timonschreiber.blockPuzzle.field.MoveList;
 
 /** TODO solution array not used
  * Game Solver Class
@@ -43,8 +43,8 @@ public class GameSolver {
 	/** {@code HashSet} of {@code GameState} to save every unique state */
 	private Set<BlockArray> states;
 
-	/** {@code MoveArray} to save every {@code Move} */
-	private MoveArray moves;
+	/** {@code MoveList} to save every {@code Move} */
+	private MoveList moves;
 
 	/** {@code Game} */
 	private Game game;
@@ -66,7 +66,7 @@ public class GameSolver {
 		
 		this.states = new HashSet<>();
 		
-		this.moves = new MoveArray();
+		this.moves = new MoveList();
 		
 		this.game = new Game(gameID);
 

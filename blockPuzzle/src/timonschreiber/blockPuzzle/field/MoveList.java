@@ -12,7 +12,7 @@ import timonschreiber.blockPuzzle.block.Block;
  * @author		Timon Schreiber
  * @version		1.1 2021 February 11
  */
-public final class MoveArray implements Iterable<Move> {
+public final class MoveList implements Iterable<Move> {
 
 	// =========================================================================
 	// ATTRIBUTES
@@ -28,7 +28,7 @@ public final class MoveArray implements Iterable<Move> {
 	/**
 	 * Class constructor.
 	 */
-	public MoveArray() {
+	public MoveList() {
 		this.MOVES = new ArrayList<>();
 	}
 
@@ -37,16 +37,16 @@ public final class MoveArray implements Iterable<Move> {
 	// =========================================================================
 
 	/**
-	 * Gets the number of {@code Move}s in this {@code MoveArray}.
+	 * Gets the number of {@code Move}s in this {@code MoveList}.
 	 * 
-	 * @return	the size of this {@code MoveArray}
+	 * @return	the size of this {@code MoveList}
 	 */
 	public int getSize() {
 		return this.MOVES.size();
 	}
 
 	/**
-	 * Gets a specific {@code Move} from this {@code MoveArray}.
+	 * Gets a specific {@code Move} from this {@code MoveList}.
 	 * 
 	 * @param index		the index of the {@code Move}
 	 * @return			the {@code Move} at the specified index
@@ -56,7 +56,7 @@ public final class MoveArray implements Iterable<Move> {
 	}
 	
 	/**
-	 * Gets the last {@code Move} in this {@code MoveArray}.
+	 * Gets the last {@code Move} in this {@code MoveList}.
 	 * 
 	 * @return		the last {@code Move}
 	 */
@@ -69,10 +69,10 @@ public final class MoveArray implements Iterable<Move> {
 	// =========================================================================
 
 	/**
-	 * Adds a new {@code Move} to the end of this {@code MoveArray}.
+	 * Adds a new {@code Move} to the end of this {@code MoveList}.
 	 * 
 	 * @param move	the {@code Move} which gets added to the end of
-	 * 				this {@code MoveArray}
+	 * 				this {@code MoveList}
 	 */
 	public void addMove(Move move) {
 		this.MOVES.add(new Move(move));
@@ -80,7 +80,7 @@ public final class MoveArray implements Iterable<Move> {
 	}
 
 	/**
-	 * Deletes the last {@code Move} in this {@code MoveArray}.
+	 * Deletes the last {@code Move} in this {@code MoveList}.
 	 */
 	public void deleteLastMove() {
 		this.MOVES.remove(this.getSize() - 1);
@@ -93,7 +93,7 @@ public final class MoveArray implements Iterable<Move> {
 
 	/**
 	 * Cuts the {@code Move}s between start and end in this
-	 * {@code MoveArray} away.
+	 * {@code MoveList} away.
 	 * 
 	 * @param start		the index for the first removed {@code Move}
 	 * @param end		the index after the last removed {@code Move}
@@ -114,13 +114,13 @@ public final class MoveArray implements Iterable<Move> {
 	 * TODO
 	 * 
 	 * Changes every {@code Move} after changeIndex this
-	 * {@code MoveArray} to the a new {@code Move} defined by the
+	 * {@code MoveList} to the a new {@code Move} defined by the
 	 * {@code BlockArray} newState.
 	 * 
 	 * @param oldState			the old {@code BlockArray}
 	 * @param newState			the new {@code BlockArray}
 	 * @param changeIndex		the index at which the changes in this
-	 * 							{@code MoveArray} occurs
+	 * 							{@code MoveList} occurs
 	 */
 	public void change(BlockArray oldState, BlockArray newState, int changeIndex) {
 		List<String[]> blockChanges = new ArrayList<>();
@@ -162,8 +162,8 @@ public final class MoveArray implements Iterable<Move> {
 		if ((obj == null) || (this.getClass() != obj.getClass())) {
 			return false;
 		}
-		// Object must be MoveArray at this point
-		MoveArray other = (MoveArray) obj;
+		// Object must be MoveList at this point
+		MoveList other = (MoveList) obj;
 		return (this.MOVES == other.MOVES)
 				|| ((this.MOVES != null) && this.MOVES.equals(other.MOVES));
 	}
@@ -188,7 +188,7 @@ public final class MoveArray implements Iterable<Move> {
 	 */
 	@Override
 	public String toString() {
-		return "MoveArray [moves=" + this.MOVES + "]";
+		return "MoveList [moves=" + this.MOVES + "]";
 	}
 	
 	// -------------------------------------------------------------------------
