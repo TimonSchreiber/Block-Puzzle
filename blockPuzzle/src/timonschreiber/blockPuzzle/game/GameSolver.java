@@ -32,7 +32,7 @@ public class GameSolver {
 	// -------------------------------------------------------------------------
 	
 	/** alternative for-loop variable to iterate over {@code BLOCK_NAMES} */
-	private String str;
+	private String blockName;
 
 	/** List of {@code BlockList}s for the solution */
 	private List<BlockList> solution;
@@ -79,7 +79,7 @@ public class GameSolver {
 			this.BLOCK_NAMES.add(blk.getName());
 		}
 		
-		this.str = this.BLOCK_NAMES.get(0);
+		this.blockName = this.BLOCK_NAMES.get(0);
 	
 	}
 
@@ -103,7 +103,7 @@ public class GameSolver {
 			
 			for (Direction dir : Direction.values()) {
 				
-				nextMove = new Move(str, dir);
+				nextMove = new Move(blockName, dir);
 
 				if (tmpFld.isValidMove(nextMove)) {
 					
@@ -118,13 +118,12 @@ public class GameSolver {
 						this.states.add(this.game.field.getBlocks());
 						this.moves.addMove(nextMove);
 						
-						this.game.field.draw(500);	// XXX
+						this.game.field.draw();
 						return true;
-						
 					}
 				}
 			}
-			this.str = this.next(str);
+			this.nextBlockName();
 		}
 		return false;
 	}
@@ -169,6 +168,25 @@ public class GameSolver {
 								+ d.toSecondsPart() + " seconds, "
 								+ d.toMillisPart() + " milliseconds");
 		}
+		
+		this.reverseGame();
+		
+		this.createSolution();
+		
+		System.out.println("\nshow first solution");
+		this.showSolution(500);
+		this.reverseGame();
+		
+		this.findShortCuts();
+		this.shortenSolution();
+		
+		System.out.println("New Move Number: " + this.moves.getSize());
+		
+		System.out.println("\nshow faster solution");
+		this.showSolution(500);
+		this.reverseGame();
+		
+		
 
 		return;
 	}
@@ -182,15 +200,13 @@ public class GameSolver {
 	 * reversing from the final state to the start state
 	 */
 	private void createSolution() {
-		System.out.println("\n\t#createSolution");	// XXX
+		GameField tmpFld = new GameField(this.game.field.getBlocks());
 		
-		this.reverseGame();
-		
-		this.solution.add(this.game.field.getBlocks());
+		this.solution.add(tmpFld.getBlocks());
 
 		for (Move mv : this.moves) {
-			if (this.game.field.isValidMove(mv)) {
-				this.solution.add(this.game.field.getBlocks());
+			if (tmpFld.isValidMove(mv)) {
+				this.solution.add(tmpFld.getBlocks());
 			} else {
 				System.out.println("Can't create the solution form the moves list.");
 				return;
@@ -204,6 +220,19 @@ public class GameSolver {
 	// REVERSE-GAME - METHOD
 	// =========================================================================
 
+	/** TODO used?
+	 * Reverse Moves from the current State to the starting position
+	 * 
+	 * @param from	current State number
+	 */
+	private void reverseGame(int from) {
+		
+		for (int i = (from - 1); i >= 0; i--) {
+			this.game.field.isValidMove(this.moves.getMove(i).reverse());
+		}
+		return;
+	}
+
 	/** TODO
 	 * Reverses all Moves
 	 */
@@ -212,155 +241,142 @@ public class GameSolver {
 		return;
 	}
 
-	/** TODO used?
-	 * Reverse Moves from the current State to the starting position
-	 * 
-	 * @param from	current State number
-	 */
-	private void reverseGame(int from) {
-		System.out.println("\n\t#reverseGame from #" + from);	// XXX
-		
-		for (int i = (from - 1); i >= 0; i--) {
-			this.game.field.isValidMove(this.moves.getMove(i).reverse());
-		}
-		return;
-	}
-
 	// =========================================================================
 	// SHOW-MOVES - METHODS
 	// =========================================================================
 
 	/** TODO separate findShortCut from showMoves (maybe createSOlution?)
-	 * Shows the Moves from Start to End with a time delay between two moves.
+	 * Shows the Solution from Start to End with a time delay between two
+	 * {@code Move}s.
 	 * 
 	 * @param delay		the time delay in milliseconds
 	 */
-	public void showMoves(int delay) {
-		System.out.println("\n\t#showMoves");	// XXX
-		
-		BlockList tmpBlks = null;
-
-		this.reverseGame();
-
+	public void showSolution(int delay) {
 		for (Move mv : this.moves) {
 			this.game.field.isValidMove(mv);
 			this.game.field.draw(delay);
 		}
 		
-		// different method?
-		this.createSolution();
-		
-		for (BlockList blks : this.solution) {
-			if (this.solution.indexOf(blks)
-					<= this.solution.indexOf(tmpBlks)) {
-				continue;	// skips to the BlockList AFTER tmpBlks in solution
-			}
-			this.reverseGame(this.solution.indexOf(blks));
-			tmpBlks = this.findShortCut(blks);
-		}
-
 		return;
 	}
 
 	/** TODO
-	 * Shows the Moves from Start to End
+	 * Shows the Solution from Start to End
 	 */
-	public void showMoves() {
-		this.showMoves(0);
+	public void showSolution() {
+		this.showSolution(0);
 		return;
 	}
 
-
-
 	// =========================================================================
-	// FIND-SHORTER-SOLUTION - METHOD
+	// FIND-SHORT-CUT - METHOD
 	// =========================================================================
 
 	/** TODO
 	 * Get a shorter solution by finding a short cut
 	 */
-	private BlockList findShortCut(BlockList blocks) {
-		System.out.println("\n\t#findShortCut from state #"
-						+ this.solution.indexOf(blocks));	// XXX
+	private void findShortCuts() {
 		
-		int index = this.solution.indexOf(blocks);
+		int counter = 0; // shortCut counter delete?? XXX
+		int start = 0;
+		int next = -1;
+		
 		Move tmpMv;
 		GameField tmpFld;
 
-		for (Move mv : this.moves) {
+		SEARCH:
+		for (; start < this.solution.size(); start++) {
 			
-			if (this.game.field.getBlocks().equals(blocks)) {
-				this.game.field.print();	// XXX
-			} else {
-				System.out.println(mv);	// XXX
-				this.game.field.isValidMove(mv);
-				continue;	// skips the rest until Game#field is equal to blocks
+			if (start <= next) {
+				start = next + 1;
 			}
 			
-			this.str = this.BLOCK_NAMES.get(0);
-
-			for (int i = 0; i < this.BLOCK_NAMES.size(); i++) {
+			for (String blkNm : this.BLOCK_NAMES) {
 				
 				for (Direction dir : Direction.values()) {
 					
-					tmpMv = new Move(this.str, dir);
-					System.out.println("\nnew Move " + tmpMv);	// XXX
-					if (tmpMv.equals(mv)) {
-						System.out.println(" -> skipped");	// XXX
-						continue; }		// skips known moves
+					tmpMv = new Move(blkNm, dir);
+//					System.out.println("tmpMv " + tmpMv);	// XXX
 					
-					tmpFld = new GameField(this.game.field.getBlocks());
+					// FIXME
+//					if (tmpMv.equals(this.moves.getMove(start))) {
+////						System.out.println(" -> skipped");	// XXX
+//						continue; }		// skips known moves
+					
+					tmpFld = new GameField(this.solution.get(start));
+					tmpFld.isValidMove(tmpMv);
 
-					if (tmpFld.isValidMove(tmpMv)) {
-						if (this.states.contains(tmpFld.getBlocks())) {
-							continue;
-						}
-
-						for (int j = (this.solution.size() - 1); j > (index + 1); j--) {
-							if (tmpFld.getBlocks().isSimilar(this.solution.get(j))) {
-								
-								System.out.println("\nShortCut from " + index + ":");
-								(new GameField(this.solution.get(index))).print();
-								
-								System.out.println("to " + j + ":");
-								(new GameField(this.solution.get(j))).print();
-								
-								System.out.println("with " + tmpMv + " instead of:");
-								for (int k = index; k < j; k++) {
-									System.out.println((k - index) + ": " + this.moves.getMove(k));
-								}
-								
-								this.shortCuts.add(
-										new ShortCut(
-												this.solution.get(index),
-												this.solution.get(j),
-												tmpMv));
-								
-								return this.solution.get(j);
-							}
+					
+					for (int i = (this.solution.size() - 1); i > (start + 1); i--) {
+						
+						if (tmpFld.getBlocks().isSimilar(this.solution.get(i))) {
+							
+							next = i;
+							
+							this.shortCuts.add(
+								new ShortCut(
+									new BlockList(this.solution.get(start)),
+									new BlockList(this.solution.get(next)),
+									new Move(tmpMv)));
+							System.out.println("\nShortCut # " + counter + " from " + start + " to " + next);
+							this.shortCuts.get(counter++).print();
+							
+							continue SEARCH;
 						}
 					}
 				}
-				this.str = this.next(this.str);
 			}
 		}
-		return this.solution.get(index);
+		return;
 	}
+
+	// =========================================================================
+	// SHORTEN-SOLUTION - METHOD
+	// =========================================================================
+	
+	private void shortenSolution() {
+		System.out.println("\n#shortenSolution\n");
+		
+		int start;
+		int end;
+		
+		GameField newState;
+		
+		for (ShortCut shrtCt : this.shortCuts) {
+			start = this.solution.indexOf(shrtCt.start());
+			end = this.solution.indexOf(shrtCt.end());
+			
+			newState = new GameField(shrtCt.start());
+			newState.isValidMove(shrtCt.move());
+			
+			System.out.println("Correct states? " + shrtCt.start().isSimilar(newState.getBlocks()));
+			
+			// change moves
+			this.moves.change(shrtCt.start(),
+					newState.getBlocks(),
+					start);
+			
+			// Cut out unnecessary moves
+			this.moves.cut(start, end);
+		}
+		
+		this.solution.clear();
+		this.createSolution();
+		
+		return;
+	}
+	
 	
 	// =========================================================================
 	// NEXT -METHOD
 	// =========================================================================
 	
 	/**
-	 * Returns the next {@code BLOCK_NAME} in the {@code List}
-	 * {@code BLOCK_NAMES}.
-	 * 
-	 * @param str	the current {@code String}
-	 * @return		the next {@code BlockName}
+	 * Sets this String {@code blockName} to the next {@code BLOCK_NAME}.
 	 */
-	private String next(String str) {
-		return this.BLOCK_NAMES.get(
-				(this.BLOCK_NAMES.indexOf(str) + 1)
+	private void nextBlockName() {
+		this.blockName = this.BLOCK_NAMES.get(
+				(this.BLOCK_NAMES.indexOf(this.blockName) + 1)
 				% this.BLOCK_NAMES.size());
 	}
 	

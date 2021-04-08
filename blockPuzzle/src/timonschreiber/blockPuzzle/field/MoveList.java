@@ -1,8 +1,11 @@
 package timonschreiber.blockPuzzle.field;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
+import java.util.Map;
 
 import timonschreiber.blockPuzzle.block.Block;
 
@@ -88,7 +91,7 @@ public final class MoveList implements Iterable<Move> {
 	}
 
 	// =========================================================================
-	// TRIM - METHOD
+	// CUT - METHOD
 	// =========================================================================
 
 	/**
@@ -107,42 +110,35 @@ public final class MoveList implements Iterable<Move> {
 	}
 
 	// =========================================================================
-	// CHANGE-MOVES-ARRAY - METHOD
+	// CHANGE - METHOD
 	// =========================================================================
 
 	/**
 	 * TODO
 	 * 
-	 * Changes every {@code Move} after changeIndex this
-	 * {@code MoveList} to the a new {@code Move} defined by the
-	 * {@code BlockList} newState.
+	 * Changes every {@code Move} after changeIndex of the {@code MoveList} to
+	 * the new {@code Move} defined by the {@code BlockList} newState.
 	 * 
 	 * @param oldState			the old {@code BlockList}
 	 * @param newState			the new {@code BlockList}
 	 * @param changeIndex		the index at which the changes in this
-	 * 							{@code MoveList} occurs
+	 * 							{@code MoveList} starts
 	 */
 	public void change(BlockList oldState, BlockList newState, int changeIndex) {
-		List<String[]> blockChanges = new ArrayList<>();
+		System.out.println("\nMoveList#change\n");	// XXX
+		
+		Map<String, String> nameChanges = new HashMap<>();
+		ListIterator<Move> listIter = this.MOVES.listIterator(changeIndex);
 		
 		for (Block blk : oldState) {
-			blockChanges.add(new String[] {blk.getName(),
-					newState.getBlock(blk.getPositions().getFirst()).getName()});
+			System.out.println(blk.getName() + " -> "
+					+ newState.getBlock(blk.getPositions().getFirst()).getName());	// XXX
+			nameChanges.put(blk.getName(),
+					newState.getBlock(blk.getPositions().getFirst()).getName());
 		}
 		
-		for (String[] str : blockChanges) {
-			if (str[0].equals(str[1])) {
-				blockChanges.remove(str);
-			}
-		}
-		
-		for (int i = changeIndex; i < this.getSize(); i++) {
-			for (String[] str : blockChanges) {
-				if (str[0].equals(this.MOVES.get(i).getName())) {
-					this.MOVES.set(i, new Move(str[1], this.MOVES.get(i).getDirection()));
-				}
-			}
-		}
+		listIter.forEachRemaining(
+				mv -> mv.changeName(nameChanges.get(mv.getName())));
 		
 		return;
 	}

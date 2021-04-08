@@ -46,6 +46,19 @@ public final class Position implements Comparable<Position> {
 	// =========================================================================
 	// GETTER - METHODS
 	// =========================================================================
+	
+	/** TODO
+	 * 
+	 * @param xMin
+	 * @param xMax
+	 * @param yMin
+	 * @param yMax
+	 * @return
+	 */
+	public boolean isInInterval(int xMin, int xMax, int yMin, int yMax) {
+		return (this.X >= xMin) && (this.X < xMax)
+				&& (this.Y >= yMin) && (this.Y < yMax);
+	}
 
 	/**
 	 * Gets the x-coordinate of this {@code Position}.
@@ -89,23 +102,6 @@ public final class Position implements Comparable<Position> {
 		}
 		
 		return new Position(newX, newY);
-	}
-	
-	// =========================================================================
-	// IN-INTERVAL - METHODS
-	// =========================================================================
-	
-	/** TODO
-	 * 
-	 * @param xMin
-	 * @param xMax
-	 * @param yMin
-	 * @param yMax
-	 * @return
-	 */
-	public boolean isInInterval(int xMin, int xMax, int yMin, int yMax) {
-		return (this.X >= xMin) && (this.X < xMax)
-				&& (this.Y >= yMin) && (this.Y < yMax);
 	}
 	
 	// =========================================================================

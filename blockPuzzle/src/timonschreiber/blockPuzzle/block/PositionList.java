@@ -113,7 +113,7 @@ public final class PositionList implements Iterable<Position> {
 	 * @param directions
 	 */
 	public void moveTowards(Direction... directions) {
-		this.POSITIONS.replaceAll(p -> p.moveTowards(directions));
+		this.POSITIONS.replaceAll(pos -> pos.moveTowards(directions));
 	}
 	
 	// =========================================================================

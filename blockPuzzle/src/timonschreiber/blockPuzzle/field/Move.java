@@ -72,8 +72,9 @@ public final class Move {
 	 * @param name
 	 * @return
 	 */
-	public Move changeName(String name) {
-		return new Move(name, this.DIRECTION);
+	public Move changeName(String newName) {
+		return new Move(newName, this.DIRECTION);
+
 	}
 
 	// =========================================================================
