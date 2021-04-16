@@ -188,7 +188,8 @@ public final class BlockList implements Iterable<Block> {
 		BlockList other = (BlockList) obj;
 		
 		return (this.BLOCKS == other.BLOCKS)
-				|| ((this.BLOCKS != null) && this.BLOCKS.equals(other.BLOCKS));
+					|| ((this.BLOCKS != null)
+						&& this.BLOCKS.equals(other.BLOCKS));
 	}
 	
 	/** TODO
@@ -196,10 +197,12 @@ public final class BlockList implements Iterable<Block> {
 	 */
 	@Override
 	public int hashCode() {
-		final int prime = 31;
+		final int PRIME = 31;
 		int hash = 7;
 		
-		hash = prime * hash + ((this.BLOCKS == null) ? 0 : this.BLOCKS.hashCode());
+		hash = PRIME * hash + ((this.BLOCKS == null)
+									? 0
+									: this.BLOCKS.hashCode());
 		
 		return hash;
 	}

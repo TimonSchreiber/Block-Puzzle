@@ -169,22 +169,22 @@ public class GameSolver {
 								+ d.toMillisPart() + " milliseconds");
 		}
 		
-		this.reverseGame();
-		
-		this.createSolution();
-		
-		System.out.println("\nshow first solution");
-		this.showSolution(200);		// FIXME time delay
-		this.reverseGame();
-		
-		this.findShortCuts();
-		this.shortenSolution();
-		
-		System.out.println("\nNew Move Number: " + this.moves.getSize());
-		
-		System.out.println("\nshow faster solution");
-		this.showSolution(200);		// FIXME time delay
-		this.reverseGame();
+//		this.reverseGame();
+//		
+//		this.createSolution();
+//		
+//		System.out.println("\nshow first solution");
+//		this.showSolution(200);		// FIXME time delay
+//		this.reverseGame();
+//		
+//		this.findShortCuts();
+//		this.shortenSolution();
+//		
+//		System.out.println("\nNew Move Number: " + this.moves.getSize());
+//		
+//		System.out.println("\nshow faster solution");
+//		this.showSolution(200);		// FIXME time delay
+//		this.reverseGame();
 		
 		
 
@@ -284,7 +284,7 @@ public class GameSolver {
 		Move tmpMv;
 		GameField tmpFld;
 
-		SEARCH:
+	SEARCH:
 		for (; start < this.solution.size(); start++) {
 			
 			if (start <= next) {
@@ -345,22 +345,20 @@ public class GameSolver {
 		int adjustment = 0;
 		
 		for (ShortCut shrtCt : this.shortCuts) {
-			start = this.solution.indexOf(shrtCt.from());
-			end = this.solution.indexOf(shrtCt.to());
+			start = this.solution.indexOf(shrtCt.initialState());
+			end   = this.solution.indexOf(shrtCt.oldState());
 			
 			System.out.println("start: " + start + " ,end: " + end);
 			
 			// change moves
-			this.moves.change(shrtCt.to(),
-					shrtCt.newState(),
-					start);
+			this.moves.change(shrtCt.oldState(), shrtCt.newState(), start);
 		}
 		
 		System.out.println("MoveList length: " + this.moves.getSize());
 		
 		for (ShortCut shrtCt : this.shortCuts) {
-			start = this.solution.indexOf(shrtCt.from()) - adjustment;
-			end = this.solution.indexOf(shrtCt.to()) - adjustment;
+			start = this.solution.indexOf(shrtCt.initialState()) - adjustment;
+			end = this.solution.indexOf(shrtCt.oldState()) - adjustment;
 			
 			// Cut out unnecessary moves
 			adjustment = this.moves.cut(start, end);

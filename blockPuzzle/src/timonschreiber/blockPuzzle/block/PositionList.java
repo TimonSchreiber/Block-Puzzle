@@ -136,7 +136,8 @@ public final class PositionList implements Iterable<Position> {
 		PositionList other = (PositionList) obj;
 		
 		return (this.POSITIONS == other.POSITIONS)
-				|| ((this.POSITIONS != null) && (this.POSITIONS.equals(other.POSITIONS)));
+					|| ((this.POSITIONS != null)
+						&& (this.POSITIONS.equals(other.POSITIONS)));
 	}
 	
 	/** TODO
@@ -144,10 +145,12 @@ public final class PositionList implements Iterable<Position> {
 	 */
 	@Override
 	public int hashCode() {
-		final int prime = 31;
+		final int PRIME = 31;
 		int hash = 7;
 		
-		hash = prime * hash + ((this.POSITIONS == null) ? 0 : this.POSITIONS.hashCode());
+		hash = PRIME * hash + ((this.POSITIONS == null)
+									? 0
+									: this.POSITIONS.hashCode());
 		
 		return hash;
 	}

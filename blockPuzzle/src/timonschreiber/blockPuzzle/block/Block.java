@@ -45,7 +45,7 @@ public final class Block {
 		this.BLOCK_NAME = BlockType.getPrefix(blockInfo.size())
 				+ ++Block.BLOCK_COUNTER[blockInfo.size()];
 
-		this.COLOR = this.createColor(blockInfo.size());
+		this.COLOR = Block.createColor(blockInfo.size());
 		
 		this.POSITIONS = new PositionList(blockInfo);
 	}
@@ -102,7 +102,7 @@ public final class Block {
 	 * @param size	the size
 	 * @return		a darker {@code Color}
 	 */
-	private Color createColor(int size) {
+	private static Color createColor(int size) {
 		Color tmpClr = BlockType.getColor(size);
 		
 		for (int i = 1; i < Block.BLOCK_COUNTER[size]; i++) {
@@ -148,12 +148,16 @@ public final class Block {
 		// Object must be Block at this point
 		Block other = (Block) obj;
 		
-		return ((this.BLOCK_NAME == other.BLOCK_NAME)
-				|| ((this.BLOCK_NAME != null) && this.BLOCK_NAME.equals(other.BLOCK_NAME)))
-				&& ((this.COLOR == other.COLOR)
-				|| ((this.COLOR != null) && this.COLOR.equals(other.COLOR)))
+		return (this.POSITIONS.getSize() == other.POSITIONS.getSize())	// XXX
+//				((this.BLOCK_NAME == other.BLOCK_NAME)
+//					|| ((this.BLOCK_NAME != null)
+//						&& this.BLOCK_NAME.equals(other.BLOCK_NAME)))
+//				&& ((this.COLOR == other.COLOR)
+//						|| ((this.COLOR != null)
+//							&& this.COLOR.equals(other.COLOR)))
 				&& ((this.POSITIONS == other.POSITIONS)
-				|| ((this.POSITIONS != null) && this.POSITIONS.equals(other.POSITIONS)));
+						|| ((this.POSITIONS != null)
+							&& this.POSITIONS.equals(other.POSITIONS)));
 	}
 	
 	/** TODO
@@ -161,12 +165,19 @@ public final class Block {
 	 */
 	@Override
 	public int hashCode() {
-		final int prime = 31;
+		final int PRIME = 31;
 		int hash = 7;
 		
-		hash = prime * hash + ((this.BLOCK_NAME == null) ? 0 : this.BLOCK_NAME.hashCode());
-		hash = prime * hash + ((this.COLOR == null) ? 0 : this.COLOR.hashCode());
-		hash = prime * hash + ((this.POSITIONS == null) ? 0 : this.POSITIONS.hashCode());
+		hash = PRIME * hash + this.POSITIONS.getSize();	// XXX
+//		hash = prime * hash + ((this.BLOCK_NAME == null)
+//									? 0
+//									: this.BLOCK_NAME.hashCode());
+//		hash = prime * hash + ((this.COLOR == null)
+//									? 0
+//									: this.COLOR.hashCode());
+		hash = PRIME * hash + ((this.POSITIONS == null)
+									? 0
+									: this.POSITIONS.hashCode());
 		
 		return hash;
 	}

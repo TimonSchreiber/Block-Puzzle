@@ -10,7 +10,7 @@ import timonschreiber.blockPuzzle.field.Move;
  * @author		Timon Schreiber
  * @version		1.0 2021 April 02
  */
-public record ShortCut(BlockList from, BlockList to, Move move) {
+public record ShortCut(BlockList initialState, BlockList oldState, Move move) {
 	
 	// =========================================================================
 	// NEW-STATE - METHOD
@@ -21,7 +21,7 @@ public record ShortCut(BlockList from, BlockList to, Move move) {
 	 * @return
 	 */
 	public BlockList newState() {
-		BlockList tmpBlkLst = new BlockList(this.from);
+		BlockList tmpBlkLst = new BlockList(this.initialState);
 		tmpBlkLst.move(this.move);
 		return tmpBlkLst;
 	}
@@ -36,11 +36,11 @@ public record ShortCut(BlockList from, BlockList to, Move move) {
 	 */
 	public void print() {
 		
-		(new GameField(this.from)).print();
+		(new GameField(this.initialState)).print();
 		
 		System.out.println("with: " + move);
 		
-		(new GameField(this.to)).print();
+		(new GameField(this.oldState)).print();
 		
 		return;
 	}

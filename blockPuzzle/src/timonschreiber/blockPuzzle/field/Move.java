@@ -112,9 +112,11 @@ public final class Move {
 		Move other = (Move) obj;
 		
 		return ((this.BLOCK_NAME == other.BLOCK_NAME)
-				|| ((this.BLOCK_NAME != null) && this.BLOCK_NAME.equals(other.BLOCK_NAME)))
+					|| ((this.BLOCK_NAME != null)
+						&& this.BLOCK_NAME.equals(other.BLOCK_NAME)))
 				&& ((this.DIRECTION == other.DIRECTION)
-				|| ((this.DIRECTION != null) && this.DIRECTION.equals(other.DIRECTION)));
+					|| ((this.DIRECTION != null)
+						&& this.DIRECTION.equals(other.DIRECTION)));
 	}
 	
 	/** TODO
@@ -122,11 +124,15 @@ public final class Move {
 	 */
 	@Override
 	public int hashCode() {
-		final int prime = 31;
+		final int PRIME = 31;
 		int hash = 7;
 		
-		hash = prime * hash + ((this.BLOCK_NAME == null) ? 0 : this.BLOCK_NAME.hashCode());
-		hash = prime * hash + ((this.DIRECTION == null) ? 0 : this.DIRECTION.hashCode());
+		hash = PRIME * hash + ((this.BLOCK_NAME == null)
+									? 0
+									: this.BLOCK_NAME.hashCode());
+		hash = PRIME * hash + ((this.DIRECTION == null)
+									? 0
+									: this.DIRECTION.hashCode());
 		
 		return hash;
 	}

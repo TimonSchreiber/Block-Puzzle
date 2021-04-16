@@ -132,11 +132,11 @@ public final class Position implements Comparable<Position> {
 	 */
 	@Override
 	public int hashCode() {
-		final int prime = 31;
+		final int PRIME = 31;
 		int hash = 7;
 		
-		hash = prime * hash + this.X;
-		hash = prime * hash + this.Y;
+		hash = PRIME * hash + this.X;
+		hash = PRIME * hash + this.Y;
 		
 		return hash;
 	}
@@ -167,8 +167,8 @@ public final class Position implements Comparable<Position> {
 	@Override
 	public int compareTo(Position other) {
 		return (this.X != other.X)
-				? Integer.compare(this.X, other.X)
-				: Integer.compare(this.Y, other.Y);
+					? Integer.compare(this.X, other.X)
+					: Integer.compare(this.Y, other.Y);
 	}
 
 	// =========================================================================
