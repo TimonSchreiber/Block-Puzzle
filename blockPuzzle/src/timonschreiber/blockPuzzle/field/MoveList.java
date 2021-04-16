@@ -101,12 +101,15 @@ public final class MoveList implements Iterable<Move> {
 	 * @param start		the index for the first removed {@code Move}
 	 * @param end		the index after the last removed {@code Move}
 	 */
-	public void cut(int start, int end) {
+	public int cut(int start, int end) {
+		int counter = 0;
+		
 		for (int i = start; i < end; i++) {
 			this.MOVES.remove(i);
+			counter++;
 		}
 
-		return;
+		return counter;
 	}
 
 	// =========================================================================
@@ -125,14 +128,11 @@ public final class MoveList implements Iterable<Move> {
 	 * 							{@code MoveList} starts
 	 */
 	public void change(BlockList oldState, BlockList newState, int changeIndex) {
-		System.out.println("\nMoveList#change\n");	// XXX
 		
 		Map<String, String> nameChanges = new HashMap<>();
 		ListIterator<Move> listIter = this.MOVES.listIterator(changeIndex);
 		
 		for (Block blk : oldState) {
-			System.out.println(blk.getName() + " -> "
-					+ newState.getBlock(blk.getPositions().getFirst()).getName());	// XXX
 			nameChanges.put(blk.getName(),
 					newState.getBlock(blk.getPositions().getFirst()).getName());
 		}

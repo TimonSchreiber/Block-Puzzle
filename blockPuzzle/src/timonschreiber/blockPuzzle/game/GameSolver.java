@@ -174,16 +174,16 @@ public class GameSolver {
 		this.createSolution();
 		
 		System.out.println("\nshow first solution");
-		this.showSolution(500);
+		this.showSolution(200);		// FIXME time delay
 		this.reverseGame();
 		
 		this.findShortCuts();
 		this.shortenSolution();
 		
-		System.out.println("New Move Number: " + this.moves.getSize());
+		System.out.println("\nNew Move Number: " + this.moves.getSize());
 		
 		System.out.println("\nshow faster solution");
-		this.showSolution(500);
+		this.showSolution(200);		// FIXME time delay
 		this.reverseGame();
 		
 		
@@ -277,7 +277,7 @@ public class GameSolver {
 	 */
 	private void findShortCuts() {
 		
-		int counter = 0; // shortCut counter delete?? XXX
+//		int counter = 0; // shortCut counter delete?? XXX
 		int start = 0;
 		int next = -1;
 		
@@ -318,8 +318,10 @@ public class GameSolver {
 									new BlockList(this.solution.get(start)),
 									new BlockList(this.solution.get(next)),
 									new Move(tmpMv)));
-							System.out.println("\nShortCut # " + counter + " from " + start + " to " + next);
-							this.shortCuts.get(counter++).print();
+							
+//							FIXME delete below?
+//							System.out.println("\nShortCut # " + counter + " from " + start + " to " + next);
+//							this.shortCuts.get(counter++).print();
 							
 							continue SEARCH;
 						}
@@ -340,28 +342,35 @@ public class GameSolver {
 		int start;
 		int end;
 		
-		GameField newState;
+		int adjustment = 0;
 		
 		for (ShortCut shrtCt : this.shortCuts) {
-			start = this.solution.indexOf(shrtCt.start());
-			end = this.solution.indexOf(shrtCt.end());
+			start = this.solution.indexOf(shrtCt.from());
+			end = this.solution.indexOf(shrtCt.to());
 			
-			newState = new GameField(shrtCt.start());
-			newState.isValidMove(shrtCt.move());
-			
-			System.out.println("Correct states? " + shrtCt.start().isSimilar(newState.getBlocks()));
+			System.out.println("start: " + start + " ,end: " + end);
 			
 			// change moves
-			this.moves.change(shrtCt.start(),
-					newState.getBlocks(),
+			this.moves.change(shrtCt.to(),
+					shrtCt.newState(),
 					start);
-			
-			// Cut out unnecessary moves
-			this.moves.cut(start, end);
 		}
 		
-		this.solution.clear();
-		this.createSolution();
+		System.out.println("MoveList length: " + this.moves.getSize());
+		
+		for (ShortCut shrtCt : this.shortCuts) {
+			start = this.solution.indexOf(shrtCt.from()) - adjustment;
+			end = this.solution.indexOf(shrtCt.to()) - adjustment;
+			
+			// Cut out unnecessary moves
+			adjustment = this.moves.cut(start, end);
+		}
+		
+		System.out.println("MoveList length: " + this.moves.getSize());
+		
+		// Create the new solution
+//		this.solution.clear();
+//		this.createSolution();
 		
 		return;
 	}

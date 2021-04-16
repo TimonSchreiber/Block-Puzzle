@@ -10,22 +10,37 @@ import timonschreiber.blockPuzzle.field.Move;
  * @author		Timon Schreiber
  * @version		1.0 2021 April 02
  */
-public record ShortCut(BlockList start, BlockList end, Move move) {
+public record ShortCut(BlockList from, BlockList to, Move move) {
 	
+	// =========================================================================
+	// NEW-STATE - METHOD
+	// =========================================================================
 	
+	/**
+	 * 
+	 * @return
+	 */
+	public BlockList newState() {
+		BlockList tmpBlkLst = new BlockList(this.from);
+		tmpBlkLst.move(this.move);
+		return tmpBlkLst;
+	}
 	
 	
 	// =========================================================================
 	// PRINT - METHOD
 	// =========================================================================
 	
+	/**
+	 * TODO delete?
+	 */
 	public void print() {
 		
-		(new GameField(this.start)).print();
+		(new GameField(this.from)).print();
 		
 		System.out.println("with: " + move);
 		
-		(new GameField(this.end)).print();
+		(new GameField(this.to)).print();
 		
 		return;
 	}
