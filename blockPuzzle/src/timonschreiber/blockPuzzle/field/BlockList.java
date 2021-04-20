@@ -1,8 +1,8 @@
 package timonschreiber.blockPuzzle.field;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import timonschreiber.blockPuzzle.block.Block;
 import timonschreiber.blockPuzzle.block.Position;
@@ -20,7 +20,7 @@ public final class BlockList implements Iterable<Block> {
 	// =========================================================================
 
 	/** {@code Block Array} */
-	private final List<Block> BLOCKS;
+	private final SortedSet<Block> BLOCKS;
 
 	// =========================================================================
 	// CONSTRUCTORS
@@ -30,7 +30,7 @@ public final class BlockList implements Iterable<Block> {
 	 * Class constructor.
 	 */
 	public BlockList() {
-		this.BLOCKS = new ArrayList<>();
+		this.BLOCKS = new TreeSet<>();
 	}
 	
 	/**
@@ -39,7 +39,7 @@ public final class BlockList implements Iterable<Block> {
 	 * @param blockList	the {@code BlockList}
 	 */
 	public BlockList(BlockList blockList) {
-		this.BLOCKS = new ArrayList<>();
+		this.BLOCKS = new TreeSet<>();
 		
 		for (Block block : blockList) {
 			this.BLOCKS.add(new Block(block));
@@ -74,16 +74,6 @@ public final class BlockList implements Iterable<Block> {
 	public int getSize() {
 		return this.BLOCKS.size();
 	}
-
-	/** TODO
-	 * 
-	 * @param index
-	 * @return
-	 */
-	public Block getBlock(int index) {
-		return new Block(this.BLOCKS.get(index));
-	}
-
 
 	/** TODO
 	 * 

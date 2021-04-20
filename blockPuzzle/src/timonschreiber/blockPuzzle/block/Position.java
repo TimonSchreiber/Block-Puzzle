@@ -161,14 +161,14 @@ public final class Position implements Comparable<Position> {
 	// COMPARABLE
 	// -------------------------------------------------------------------------
 
-	/**
+	/** TODO
 	 * 
 	 */
 	@Override
-	public int compareTo(Position other) {
-		return (this.X != other.X)
-					? Integer.compare(this.X, other.X)
-					: Integer.compare(this.Y, other.Y);
+	public int compareTo(Position o) {
+		return (this.X != o.X)
+					? Integer.compare(this.X, o.X)
+					: Integer.compare(this.Y, o.Y);
 	}
 
 	// =========================================================================

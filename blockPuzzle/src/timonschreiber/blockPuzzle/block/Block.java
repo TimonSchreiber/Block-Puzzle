@@ -10,7 +10,7 @@ import timonschreiber.blockPuzzle.field.Direction;
  * @author		Timon Schreiber
  * @version		1.1 2021 February 13
  */
-public final class Block {
+public final class Block implements Comparable<Block> {
 
 	// =========================================================================
 	// ATTRIBUTES
@@ -148,7 +148,8 @@ public final class Block {
 		// Object must be Block at this point
 		Block other = (Block) obj;
 		
-		return (this.POSITIONS.getSize() == other.POSITIONS.getSize())	// XXX
+		return
+				(this.POSITIONS.getSize() == other.POSITIONS.getSize())	// XXX
 //				((this.BLOCK_NAME == other.BLOCK_NAME)
 //					|| ((this.BLOCK_NAME != null)
 //						&& this.BLOCK_NAME.equals(other.BLOCK_NAME)))
@@ -169,10 +170,10 @@ public final class Block {
 		int hash = 7;
 		
 		hash = PRIME * hash + this.POSITIONS.getSize();	// XXX
-//		hash = prime * hash + ((this.BLOCK_NAME == null)
+//		hash = PRIME * hash + ((this.BLOCK_NAME == null)
 //									? 0
 //									: this.BLOCK_NAME.hashCode());
-//		hash = prime * hash + ((this.COLOR == null)
+//		hash = PRIME * hash + ((this.COLOR == null)
 //									? 0
 //									: this.COLOR.hashCode());
 		hash = PRIME * hash + ((this.POSITIONS == null)
@@ -192,6 +193,22 @@ public final class Block {
 	@Override
 	public String toString() {
 		return "Block [blockName=" + this.BLOCK_NAME + ", positions=" + this.POSITIONS + "]";
+	}
+
+	// =========================================================================
+	// INTERFACE - METHOD
+	// =========================================================================
+	
+	// -------------------------------------------------------------------------
+	// COMPARABLE
+	// -------------------------------------------------------------------------
+	
+	/** TODO
+	 * 
+	 */
+	@Override
+	public int compareTo(Block o) {
+		return this.POSITIONS.compareTo(o.POSITIONS);
 	}
 
 	// =========================================================================

@@ -75,8 +75,27 @@ public class GameSolver {
 		// Block_Names
 		this.BLOCK_NAMES = new ArrayList<>();
 		
-		for (Block blk : this.game.field.getBlocks()) {
-			this.BLOCK_NAMES.add(blk.getName());
+		System.out.println("BlockNames:\n");
+		this.BLOCK_NAMES.add("R1");
+		this.BLOCK_NAMES.add("Y1");
+		this.BLOCK_NAMES.add("Y2");
+		this.BLOCK_NAMES.add("Y3");
+		this.BLOCK_NAMES.add("Y4");
+		this.BLOCK_NAMES.add("B1");
+		this.BLOCK_NAMES.add("B2");
+		this.BLOCK_NAMES.add("B3");
+		this.BLOCK_NAMES.add("G1");
+		this.BLOCK_NAMES.add("G2");
+		this.BLOCK_NAMES.add("G3");
+		this.BLOCK_NAMES.add("G4");
+		this.BLOCK_NAMES.add("G5");
+		this.BLOCK_NAMES.add("G6");
+//		for (Block blk : this.game.field.getBlocks()) {
+//			System.out.println(blk.getName());
+//			this.BLOCK_NAMES.add(blk.getName());
+//		}
+		for (String str : this.BLOCK_NAMES) {
+			System.out.println(str);
 		}
 		
 		this.blockName = this.BLOCK_NAMES.get(0);
@@ -118,7 +137,7 @@ public class GameSolver {
 						this.states.add(this.game.field.getBlocks());
 						this.moves.addMove(nextMove);
 						
-						this.game.field.draw();
+						this.game.field.draw(200);
 						return true;
 					}
 				}
@@ -168,16 +187,20 @@ public class GameSolver {
 								+ d.toSecondsPart() + " seconds, "
 								+ d.toMillisPart() + " milliseconds");
 		}
+		// XXX
+		for (Block blk : this.game.field.getBlocks()) {
+			System.out.println(blk.getName());
+		}
 		
-//		this.reverseGame();
-//		
-//		this.createSolution();
-//		
-//		System.out.println("\nshow first solution");
-//		this.showSolution(200);		// FIXME time delay
-//		this.reverseGame();
-//		
-//		this.findShortCuts();
+		this.reverseGame();
+		
+		this.createSolution();
+		
+		System.out.println("\nshow first solution");
+		this.showSolution(200);		// FIXME time delay
+		this.reverseGame();
+		
+		this.findShortCuts();
 //		this.shortenSolution();
 //		
 //		System.out.println("\nNew Move Number: " + this.moves.getSize());
@@ -186,8 +209,6 @@ public class GameSolver {
 //		this.showSolution(200);		// FIXME time delay
 //		this.reverseGame();
 		
-		
-
 		return;
 	}
 
@@ -277,7 +298,7 @@ public class GameSolver {
 	 */
 	private void findShortCuts() {
 		
-//		int counter = 0; // shortCut counter delete?? XXX
+		int counter = 0; // shortCut counter delete? XXX
 		int start = 0;
 		int next = -1;
 		
@@ -320,8 +341,8 @@ public class GameSolver {
 									new Move(tmpMv)));
 							
 //							FIXME delete below?
-//							System.out.println("\nShortCut # " + counter + " from " + start + " to " + next);
-//							this.shortCuts.get(counter++).print();
+							System.out.println("\nShortCut # " + counter + " from " + start + " to " + next);
+							this.shortCuts.get(counter++).print();
 							
 							continue SEARCH;
 						}

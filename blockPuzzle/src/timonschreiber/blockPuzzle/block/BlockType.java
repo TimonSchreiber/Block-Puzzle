@@ -23,10 +23,10 @@ public enum BlockType {
 	// ATTRIBUTES
 	// =========================================================================
 	
-	/** A String with the first letter of the color */
+	/** A {@code String} with the first letter of the {@code Color} */
 	private final String NAME_PREFIX;
 	
-	/** the color */
+	/** the {@code Color} */
 	private final Color COLOR;
 	
 	// =========================================================================

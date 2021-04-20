@@ -1,6 +1,7 @@
 package timonschreiber.blockPuzzle.block;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import timonschreiber.blockPuzzle.field.Direction;
  * @author		Timon Schreiber
  * @version		1.1 2021 February 24
  */
-public final class PositionList implements Iterable<Position> {
+public final class PositionList implements Iterable<Position>, Comparable<PositionList> {
 	
 	// =========================================================================
 	// ATTRIBUTES
@@ -55,8 +56,8 @@ public final class PositionList implements Iterable<Position> {
 					blockInfo.position());
 			break;
 		}
-		
-		this.POSITIONS.sort(null);
+
+		Collections.sort(this.POSITIONS);
 	}
 	
 	/**
@@ -71,7 +72,7 @@ public final class PositionList implements Iterable<Position> {
 			this.POSITIONS.add(new Position(pos));
 		} 
 
-		this.POSITIONS.sort(null);
+		Collections.sort(this.POSITIONS);
 	}
 	
 	// =========================================================================
@@ -181,6 +182,20 @@ public final class PositionList implements Iterable<Position> {
 	@Override
 	public Iterator<Position> iterator() {
 		return this.POSITIONS.iterator();
+	}
+	
+	// -------------------------------------------------------------------------
+	// COMPARABLE
+	// -------------------------------------------------------------------------
+
+	/** TODO
+	 * 
+	 */
+	@Override
+	public int compareTo(PositionList o) {
+		return (this.getSize() != o.getSize())
+					? Integer.compare(o.getSize(), this.getSize())	// larger Blocks before smaller Blocks
+					: this.getFirst().compareTo(o.getFirst());
 	}
 	
 	// =========================================================================
