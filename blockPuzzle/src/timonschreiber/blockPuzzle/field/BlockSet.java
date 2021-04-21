@@ -1,7 +1,7 @@
 package timonschreiber.blockPuzzle.field;
 
 import java.util.Iterator;
-import java.util.SortedSet;
+import java.util.Set;
 import java.util.TreeSet;
 
 import timonschreiber.blockPuzzle.block.Block;
@@ -13,14 +13,14 @@ import timonschreiber.blockPuzzle.block.Position;
  * @author		Timon Schreiber
  * @version		1.1 2021 February 28
  */
-public final class BlockList implements Iterable<Block> {
+public final class BlockSet implements Iterable<Block> {
 
 	// =========================================================================
 	// ATTRIBUTE
 	// =========================================================================
 
 	/** {@code Block Array} */
-	private final SortedSet<Block> BLOCKS;
+	private final Set<Block> BLOCKS;
 
 	// =========================================================================
 	// CONSTRUCTORS
@@ -29,19 +29,19 @@ public final class BlockList implements Iterable<Block> {
 	/**
 	 * Class constructor.
 	 */
-	public BlockList() {
+	public BlockSet() {
 		this.BLOCKS = new TreeSet<>();
 	}
 	
 	/**
 	 * Copy constructor.
 	 * 
-	 * @param blockList	the {@code BlockList}
+	 * @param blockSet	the {@code BlockSet}
 	 */
-	public BlockList(BlockList blockList) {
+	public BlockSet(BlockSet blockSet) {
 		this.BLOCKS = new TreeSet<>();
 		
-		for (Block block : blockList) {
+		for (Block block : blockSet) {
 			this.BLOCKS.add(new Block(block));
 		}
 	}
@@ -51,7 +51,7 @@ public final class BlockList implements Iterable<Block> {
 	// =========================================================================
 
 	/** TODO
-	 * Checks if there is a Block in this {@code BlockList} with the same
+	 * Checks if there is a Block in this {@code BlockSet} with the same
 	 * x- and y-coordinates as one of its {@code Block}s.
 	 * 
 	 * @param position	the {@code Position}
@@ -73,6 +73,20 @@ public final class BlockList implements Iterable<Block> {
 	 */
 	public int getSize() {
 		return this.BLOCKS.size();
+	}
+	
+	/** TODO replace ever this.BLOCKS.getBlock(position).getName() with this
+	 * 
+	 * @param position
+	 * @return
+	 */
+	public String getBlockName(Position position) {
+		for (Block blk : this.BLOCKS) {
+			if (blk.getPositions().contains(position)) {
+				return blk.getName();
+			}
+		}
+		return null;
 	}
 
 	/** TODO
@@ -143,7 +157,7 @@ public final class BlockList implements Iterable<Block> {
 	 * @param blocks
 	 * @return
 	 */
-	public boolean isSimilar(BlockList blocks) {
+	public boolean isSimilar(BlockSet blocks) {
 		int counter = 0;
 		
 		for (Block blk1 : this.BLOCKS) {
@@ -174,8 +188,8 @@ public final class BlockList implements Iterable<Block> {
 			return false;
 		}
 		
-		// Object must be BlockList at this point
-		BlockList other = (BlockList) obj;
+		// Object must be BlockSet at this point
+		BlockSet other = (BlockSet) obj;
 		
 		return (this.BLOCKS == other.BLOCKS)
 					|| ((this.BLOCKS != null)
@@ -206,7 +220,7 @@ public final class BlockList implements Iterable<Block> {
 	 */
 	@Override
 	public String toString() {
-		return "BlockList [blocks=" + this.BLOCKS + "]";
+		return "BlockSet [blocks=" + this.BLOCKS + "]";
 	}
 
 	// =========================================================================

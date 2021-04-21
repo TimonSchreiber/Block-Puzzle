@@ -194,7 +194,7 @@ public final class PositionList implements Iterable<Position>, Comparable<Positi
 	@Override
 	public int compareTo(PositionList o) {
 		return (this.getSize() != o.getSize())
-					? Integer.compare(o.getSize(), this.getSize())	// larger Blocks before smaller Blocks
+					? -Integer.compare(this.getSize(), o.getSize())	// larger Blocks before smaller Blocks
 					: this.getFirst().compareTo(o.getFirst());
 	}
 	

@@ -120,14 +120,14 @@ public final class MoveList implements Iterable<Move> {
 	 * TODO
 	 * 
 	 * Changes every {@code Move} after changeIndex of the {@code MoveList} to
-	 * the new {@code Move} defined by the {@code BlockList} newState.
+	 * the new {@code Move} defined by the {@code BlockSet} newState.
 	 * 
-	 * @param oldState			the old {@code BlockList}
-	 * @param newState			the new {@code BlockList}
+	 * @param oldState			the old {@code BlockSet}
+	 * @param newState			the new {@code BlockSet}
 	 * @param changeIndex		the index at which the changes in this
 	 * 							{@code MoveList} starts
 	 */
-	public void change(BlockList oldState, BlockList newState, int changeIndex) {
+	public void change(BlockSet oldState, BlockSet newState, int changeIndex) {
 		
 		Map<String, String> nameChanges = new HashMap<>();
 		ListIterator<Move> listIter = this.MOVES.listIterator(changeIndex);

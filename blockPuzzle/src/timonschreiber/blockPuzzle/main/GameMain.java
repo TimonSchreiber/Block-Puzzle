@@ -7,7 +7,7 @@ import java.util.Set;
 import timonschreiber.blockPuzzle.block.Block;
 import timonschreiber.blockPuzzle.block.BlockInfo;
 import timonschreiber.blockPuzzle.block.Position;
-import timonschreiber.blockPuzzle.field.BlockList;
+import timonschreiber.blockPuzzle.field.BlockSet;
 import timonschreiber.blockPuzzle.field.Direction;
 import timonschreiber.blockPuzzle.field.GameField;
 import timonschreiber.blockPuzzle.field.Move;
@@ -23,20 +23,20 @@ public class GameMain {
 
 	public static void main(String[] args) {
 		
-//		Set<BlockList> set = new HashSet<>();
+//		Set<BlockSet> set = new HashSet<>();
 //		
-//		BlockList blkLst1 = new BlockList();
+//		BlockSet blkLst1 = new BlockSet();
 //		blkLst1.addBlock(new Block(new BlockInfo(new Position(0, 0), 1, Direction.R)));
 //		blkLst1.addBlock(new Block(new BlockInfo(new Position(1, 1), 2, Direction.R)));
 //		blkLst1.addBlock(new Block(new BlockInfo(new Position(2, 0), 1, Direction.R)));
 //
 //		
-//		BlockList blkLst2 = new BlockList();
+//		BlockSet blkLst2 = new BlockSet();
 //		blkLst2.addBlock(new Block(new BlockInfo(new Position(2, 0), 1, Direction.R)));
 //		blkLst2.addBlock(new Block(new BlockInfo(new Position(1, 1), 2, Direction.R)));
 //		blkLst2.addBlock(new Block(new BlockInfo(new Position(0, 0), 1, Direction.R)));
 //		
-//		System.out.println("BlockList 1: " + blkLst1.hashCode());
+//		System.out.println("BlockSet 1: " + blkLst1.hashCode());
 //		System.out.println(blkLst1);
 //		(new GameField(blkLst1)).print();
 //		
@@ -44,7 +44,7 @@ public class GameMain {
 //		System.out.println(blkLst2);
 //		(new GameField(blkLst2)).print();
 //		
-//		System.out.println("\nBlockList 1 equal BlockList 2?\n" + blkLst1.equals(blkLst2));
+//		System.out.println("\nBlockList 1 equal BlockSet 2?\n" + blkLst1.equals(blkLst2));
 //		
 //		set.add(blkLst1);
 //		set.add(blkLst2);

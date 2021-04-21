@@ -1,6 +1,6 @@
 package timonschreiber.blockPuzzle.game;
 
-import timonschreiber.blockPuzzle.field.BlockList;
+import timonschreiber.blockPuzzle.field.BlockSet;
 import timonschreiber.blockPuzzle.field.GameField;
 import timonschreiber.blockPuzzle.field.Move;
 
@@ -10,18 +10,18 @@ import timonschreiber.blockPuzzle.field.Move;
  * @author		Timon Schreiber
  * @version		1.0 2021 April 02
  */
-public record ShortCut(BlockList initialState, BlockList oldState, Move move) {
+public record ShortCut(BlockSet initialState, BlockSet oldState, Move move) {
 	
 	// =========================================================================
 	// NEW-STATE - METHOD
 	// =========================================================================
 	
-	/**
+	/** TODO
 	 * 
 	 * @return
 	 */
-	public BlockList newState() {
-		BlockList tmpBlkLst = new BlockList(this.initialState);
+	public BlockSet newState() {
+		BlockSet tmpBlkLst = new BlockSet(this.initialState);
 		tmpBlkLst.move(this.move);
 		return tmpBlkLst;
 	}

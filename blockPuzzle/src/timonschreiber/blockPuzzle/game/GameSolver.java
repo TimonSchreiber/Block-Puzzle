@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import timonschreiber.blockPuzzle.block.Block;
-import timonschreiber.blockPuzzle.field.BlockList;
+import timonschreiber.blockPuzzle.field.BlockSet;
 import timonschreiber.blockPuzzle.field.Direction;
 import timonschreiber.blockPuzzle.field.GameField;
 import timonschreiber.blockPuzzle.field.Move;
@@ -34,14 +34,14 @@ public class GameSolver {
 	/** alternative for-loop variable to iterate over {@code BLOCK_NAMES} */
 	private String blockName;
 
-	/** List of {@code BlockList}s for the solution */
-	private List<BlockList> solution;
+	/** List of {@code BlockSet}s for the solution */
+	private List<BlockSet> solution;
 	
 	/** List of {@code ShortCut}s to shorten the solution */
 	private List<ShortCut> shortCuts;
 
 	/** {@code HashSet} of {@code GameState} to save every unique state */
-	private Set<BlockList> states;
+	private Set<BlockSet> states;
 
 	/** {@code MoveList} to save every {@code Move} */
 	private MoveList moves;
@@ -111,7 +111,7 @@ public class GameSolver {
 	 * and {@code Direction}.
 	 * 
 	 * @return	{@code true} if a new {@code Move}, leading to a new
-	 * 			{@code BlockList} is found; {@code false} otherwise
+	 * 			{@code BlockSet} is found; {@code false} otherwise
 	 */
 	private boolean isNewMove() {
 		Move nextMove;
@@ -336,8 +336,8 @@ public class GameSolver {
 							
 							this.shortCuts.add(
 								new ShortCut(
-									new BlockList(this.solution.get(start)),
-									new BlockList(this.solution.get(next)),
+									new BlockSet(this.solution.get(start)),
+									new BlockSet(this.solution.get(next)),
 									new Move(tmpMv)));
 							
 //							FIXME delete below?

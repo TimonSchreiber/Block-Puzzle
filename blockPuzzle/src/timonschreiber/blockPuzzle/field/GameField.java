@@ -38,8 +38,8 @@ public final class GameField {
 	/** Changes to {@code true} if the victory condition is met */
 	private boolean isWon;
 	
-	/** {@code BlockList} to keep track of every {@code Block} */
-	private BlockList blocks;
+	/** {@code BlockSet} to keep track of every {@code Block} */
+	private BlockSet blocks;
 
 	/** Canvas to draw the {@code GameField} on */
 	private Zeichenblatt canvas;
@@ -52,18 +52,18 @@ public final class GameField {
 	 * Class constructor.
 	 */
 	public GameField() {
-		this.blocks = new BlockList();
+		this.blocks = new BlockSet();
 	}
 
 	/**
-	 * Class constructor from a {@code BlockList}.
+	 * Class constructor from a {@code BlockSet}.
 	 * 
-	 * @param blockList	the {@code BlockList}
+	 * @param blockSet	the {@code BlockSet}
 	 */
-	public GameField(BlockList blockList) {
-		this.blocks = new BlockList();
+	public GameField(BlockSet blockSet) {
+		this.blocks = new BlockSet();
 		
-		for (Block blk : blockList) {
+		for (Block blk : blockSet) {
 			this.placeBlock(new Block(blk));
 		}
 	}
@@ -101,12 +101,12 @@ public final class GameField {
 	}
 
 	/**
-	 * Gets the {@code BlockList}.
+	 * Gets the {@code BlockSet}.
 	 * 
-	 * @return	the {@code BlockList}
+	 * @return	the {@code BlockSet}
 	 */
-	public BlockList getBlocks() {
-		return new BlockList(this.blocks);
+	public BlockSet getBlocks() {
+		return new BlockSet(this.blocks);
 	}
 
 	// =========================================================================
@@ -141,8 +141,7 @@ public final class GameField {
 		Block tmpBlk = new Block(this.blocks.getBlock(move.getName()));
 
 		for (Position pos : tmpBlk.getPositions()) {
-			tmpPos = (new Position(pos.getX(), pos.getY())).
-					moveTowards(move.getDirection());
+			tmpPos = (new Position(pos)).moveTowards(move.getDirection());
 			
 			// Checks if the new Position is inside the GameField
 			if (tmpPos.isInInterval(0, GameField.WIDTH, 0, GameField.HEIGHT)) {
@@ -178,12 +177,13 @@ public final class GameField {
 	 * 				{@code false} otherwise.
 	 */
 	public boolean isValidMove(Move move) {
-		
+
 		if (this.isCollisionFree(move)) {
 			this.blocks.move(move);
 			this.isWon = this.isWon(this.getBlocks().getBlock(move.getName()));
 			return true;
 		}
+		
 		return false;
 	}
 
@@ -206,7 +206,8 @@ public final class GameField {
 				System.out.print(" ");
 				
 				if (this.blocks.isBlock(tmpPos)) {
-					System.out.print(this.blocks.getBlock(tmpPos).getName());
+					System.out.print(this.blocks.getBlockName(tmpPos));
+//					System.out.print(this.blocks.getBlock(tmpPos).getName());	// TODO
 				} else {
 					System.out.print("__");
 				}
